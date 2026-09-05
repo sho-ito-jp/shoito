@@ -1,1 +1,157 @@
+/* ========================================
+   伊藤翔 Official Site
+   ======================================== */
 
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 40px 20px;
+    background: #f1f1f1;
+    color: #111;
+    font-family: serif;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* ページ全体 */
+
+main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+main > div {
+    width: 100%;
+}
+
+/* テーブル */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 35px 0;
+}
+
+td {
+    padding: 8px 12px;
+    vertical-align: top;
+}
+
+/* 見出し */
+
+h2 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.4;
+}
+
+/* 本文 */
+
+p {
+    margin: 0 0 25px 0;
+}
+
+/* リンク */
+
+a {
+    color: #111;
+}
+
+a.botan {
+    display: inline-block;
+    color: #111;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+a.botan:hover {
+    text-decoration: underline;
+}
+
+/* トップページのメニュー */
+
+table a.botan {
+    font-weight: normal;
+}
+
+/* フォーム */
+
+form {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto 50px auto;
+    text-align: left;
+}
+
+form p {
+    margin: 0 0 5px 0;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    border: 1px solid #888;
+    background: #fff;
+    color: #111;
+    font-family: serif;
+    font-size: 16px;
+}
+
+textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    padding: 8px 25px;
+    border: 1px solid #555;
+    background: #f1f1f1;
+    color: #111;
+    font-family: serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background: #ddd;
+}
+
+/* スマートフォン */
+
+@media screen and (max-width: 600px) {
+
+    body {
+        padding: 25px 15px;
+        font-size: 15px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+    td {
+        padding: 6px 5px;
+    }
+
+    table {
+        margin-bottom: 25px;
+    }
+
+    form {
+        margin-top: 10px;
+    }
+
+}
