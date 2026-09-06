@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<title>送信完了 - 伊藤翔</title>
+<link rel="icon" href="is logo.png">
+<meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<center>
+
+<main>
+<div>
+<table>
+<tr>
+<td align="right"><a class="botan" href="index.html" target"_blank" >ゴートゥーホーム - Go to home</a>
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+<H2>送信が完了いたしました！</H2>
+Thank you for submitting your inquiry.
+</td>
+</tr>
+</table>
+<H2>&#169;2026 伊藤翔</H2>
+</div>
+</main>
+
+</center>
+</body>
+</html>
