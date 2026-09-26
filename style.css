@@ -63,27 +63,34 @@ button,input,textarea{font:inherit}
 .works-page{background:#f1f1f1;}
 .system-list{border-top:1px solid #999}
 .system-row{display:grid;grid-template-columns:90px 1fr 120px;gap:18px;padding:18px 0;border-bottom:1px solid #999}
-.hanging{
-  height:70vh;
-  min-height:500px;
-  overflow-x:auto;
-  overflow-y:hidden;
-  margin-bottom:50px;
-  white-space:nowrap;
-  padding-left:20px;
-  padding-right:80px;
+.hanging {
+  display: flex;
+  align-items: flex-start;
+  gap: 70px;
+
+  width: max-content;
+  min-width: 100%;
+  min-height: 600px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 20px 80px 40px 20px;
 }
 
-.hanging a{
-  position:relative;
-  top:-20px;
-  display:inline-block;
-  vertical-align:top;
-  writing-mode:vertical-rl;
-  font-size:clamp(22px,3vw,48px);
-  margin-right:70px;
-  animation:sway 4s ease-in-out infinite;
-  white-space:nowrap;
+.hanging a {
+  flex: 0 0 auto;
+
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+
+  font-size: clamp(22px, 3vw, 48px);
+  line-height: 1.2;
+
+  white-space: nowrap;
+  text-decoration: none;
+
+  animation: sway 4s ease-in-out infinite;
 }
 @keyframes sway{50%{transform:translateX(14px) rotate(2deg)}}
 
