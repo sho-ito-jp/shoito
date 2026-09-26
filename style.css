@@ -63,8 +63,28 @@ button,input,textarea{font:inherit}
 .works-page{background:#f1f1f1;}
 .system-list{border-top:1px solid #999}
 .system-row{display:grid;grid-template-columns:90px 1fr 120px;gap:18px;padding:18px 0;border-bottom:1px solid #999}
-.hanging{position:relative;height:360px;overflow:hidden;margin-bottom:50px}
-.hanging a{position:absolute;top:-20px;writing-mode:vertical-rl;font-size:clamp(22px,3vw,48px);animation:sway 4s ease-in-out infinite}
+.hanging{
+  position:relative;
+  height:360px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  margin-bottom:50px;
+  white-space:nowrap;
+  padding-left:20px;
+  padding-right:80px;
+}
+
+.hanging a{
+  position:relative;
+  top:-20px;
+  display:inline-block;
+  vertical-align:top;
+  writing-mode:vertical-rl;
+  font-size:clamp(22px,3vw,48px);
+  margin-right:70px;
+  animation:sway 4s ease-in-out infinite;
+  white-space:nowrap;
+}
 @keyframes sway{50%{transform:translateX(14px) rotate(2deg)}}
 
 /* discography */
