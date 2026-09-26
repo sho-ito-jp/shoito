@@ -72,43 +72,41 @@ document.querySelectorAll('[data-diary-link]').forEach(link => {
 
   // Discography
   const overlay = document.querySelector(".cd-overlay");
+
   const discSound = () => {
     const s = new Audio("disc.wav");
     s.volume = 0.55;
     s.play().catch(() => {});
   };
-  function setupDiscographyTracks() {
-    document.querySelectorAll("[data-track]").forEach((track) => {
-      if (track.dataset.trackReady === "true") return;
 
-      track.dataset.trackReady = "true";
 
-      track.addEventListener("click", () => {
-        discSound();
+  document.addEventListener("click", (event) => {
+    const track = event.target.closest("[data-track]");
 
-        if (overlay) {
-          const cd = overlay.querySelector(".cd");
+    if (!track) return;
 
-          cd.style.setProperty(
-            "--disc",
-            track.dataset.cover || "#ddd"
-          );
+    discSound();
 
-          overlay.querySelector("[data-cd-title]").textContent =
-            track.dataset.title || "";
+    if (overlay) {
+      const cd = overlay.querySelector(".cd");
 
-          overlay.classList.add("show");
-        }
+      cd.style.setProperty(
+        "--disc",
+        track.dataset.cover || "#ddd"
+      );
 
-        setTimeout(() => {
-          const href = track.dataset.url;
+      overlay.querySelector("[data-cd-title]").textContent =
+        track.dataset.title || "";
 
-          if (href && href !== "#") {
-            location.href = href;
-          }
-        }, 1300);
-      });
-    });
-  }
+      overlay.classList.add("show");
+    }
 
+    setTimeout(() => {
+      const href = track.dataset.url;
+
+      if (href && href !== "#") {
+        location.href = href;
+      }
+    }, 1300);
+  });
   setupDiscographyTracks();
