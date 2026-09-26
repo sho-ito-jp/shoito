@@ -66,22 +66,17 @@ button,input,textarea{font:inherit}
 .system-row{display:grid;grid-template-columns:90px 1fr 120px;gap:18px;padding:18px 0;border-bottom:1px solid #999}
 .hanging{
   position:relative;
-  height:520px;
+  height:360px;
   overflow:hidden;
   margin-bottom:50px;
 }
 
 .hanging a{
   position:absolute;
-  top:0;
+  top:-20px;
   writing-mode:vertical-rl;
-  text-orientation:mixed;
-  font-size:clamp(16px,2vw,30px);
-  line-height:1.2;
-  color:inherit;
-  text-decoration:none;
+  font-size:clamp(22px,3vw,48px);
   animation:sway 4s ease-in-out infinite;
-  transform-origin:top center;
 }
 @keyframes sway{50%{transform:translateX(14px) rotate(2deg)}}
 
