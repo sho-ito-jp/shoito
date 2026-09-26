@@ -39,8 +39,72 @@
     <div class="meta">台 / STAGE</div>
     <h1 class="page-title">ステージ</h1>
     <div class="stage-board" id="stage-list">
-  <!-- CMSから自動生成 -->
-</div>
+  <!-- CMSから自動生成 --> </div>
+  <script>
+async function loadStage() {
+  const container = document.getElementById("stage-list");
+
+  try {
+    const response = await fetch(
+      "https://api.github.com/repos/sho-ito-jp/shoito/contents/content/stage"
+    );
+
+    if (!response.ok) {
+      throw new Error("GitHub API error: " + response.status);
+    }
+
+    const files = await response.json();
+
+    for (const file of files) {
+      if (!file.name.endsWith(".md")) continue;
+
+      const response = await fetch(file.download_url);
+      const text = await response.text();
+
+      const match = text.match(/^---\s*([\s\S]*?)\s*---/);
+
+      if (!match) continue;
+
+      const frontMatter = match[1];
+
+      const getValue = (name) => {
+        const match = frontMatter.match(
+          new RegExp("^" + name + ":\\s*(.+)$", "m")
+        );
+        return match ? match[1].trim() : "";
+      };
+
+      const date = getValue("date");
+      const title = getValue("title");
+      const description = getValue("description");
+      const left = getValue("left");
+      const top = getValue("top");
+
+      if (!title) continue;
+
+      const card = document.createElement("article");
+
+      card.className = "event-card";
+
+      card.style.left = (left || 10) + "%";
+      card.style.top = (top || 10) + "%";
+
+      card.innerHTML = `
+        <div class="meta">${date}</div>
+        <h2>${title}</h2>
+        <p>${description}</p>
+      `;
+
+      container.appendChild(card);
+    }
+
+  } catch (error) {
+    console.error("Stageの読み込みに失敗しました:", error);
+  }
+}
+
+loadStage();
+</script>
   </section>
   <div class="walking">👣</div>
 </main>
