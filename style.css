@@ -64,8 +64,8 @@ button,input,textarea{font:inherit}
 .system-list{border-top:1px solid #999}
 .system-row{display:grid;grid-template-columns:90px 1fr 120px;gap:18px;padding:18px 0;border-bottom:1px solid #999}
 .hanging{
-  position:relative;
-  height:360px;
+  height:70vh;
+  min-height:500px;
   overflow-x:auto;
   overflow-y:hidden;
   margin-bottom:50px;
