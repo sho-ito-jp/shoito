@@ -109,9 +109,7 @@ async function loadDiscography() {
       button.style.top = (top || 10) + "%";
       button.style.transform = `rotate(${rotate || 0}deg)`;
 
-      // クリック時のCD演出
       button.addEventListener("click", () => {
-        
         discSound();
 
         if (overlay) {
@@ -123,7 +121,8 @@ async function loadDiscography() {
             cd.style.setProperty("--disc", cover || "#ddd");
           }
 
-          const titleElement = overlay.querySelector("[data-cd-title]");
+          const titleElement =
+            overlay.querySelector("[data-cd-title]");
 
           if (titleElement) {
             titleElement.textContent = title;
@@ -135,9 +134,10 @@ async function loadDiscography() {
             location.href = url;
           }
         }, 1300);
-        });
+      });
 
       container.appendChild(button);
+    }
 
   } catch (error) {
     console.error(
