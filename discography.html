@@ -117,6 +117,16 @@ async function loadDiscography() {
 if (overlay) {
   overlay.classList.add("show");
 
+  overlay.style.opacity = "1";
+overlay.style.visibility = "visible";
+
+const cd = overlay.querySelector(".cd");
+
+if (cd) {
+  cd.style.transform = "translateY(0) scale(1)";
+  cd.style.opacity = "1";
+}
+
   const cd = overlay.querySelector(".cd");
 
   if (cd) {
