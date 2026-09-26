@@ -1,0 +1,27 @@
+backend:
+  name: github
+  repo: sho-ito-jp/shoito
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "discography"
+    label: "ディスコグラフィー"
+    folder: "content/discography"
+    create: true
+    slug: "{{slug}}"
+
+    fields:
+      - label: "タイトル"
+        name: "title"
+        widget: "string"
+
+      - label: "YouTube URL"
+        name: "url"
+        widget: "string"
+
+      - label: "ジャケット色"
+        name: "cover"
+        widget: "color"
