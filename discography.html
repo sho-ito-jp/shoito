@@ -114,32 +114,29 @@ async function loadDiscography() {
         
         discSound();
 
-if (overlay) {
-  overlay.classList.add("show");
+        if (overlay) {
+          overlay.classList.add("show");
 
+          const cd = overlay.querySelector(".cd");
 
+          if (cd) {
+            cd.style.setProperty("--disc", cover || "#ddd");
+          }
 
-  const cd = overlay.querySelector(".cd");
+          const titleElement = overlay.querySelector("[data-cd-title]");
 
-  if (cd) {
-    cd.style.setProperty("--disc", cover || "#ddd");
-  }
+          if (titleElement) {
+            titleElement.textContent = title;
+          }
+        }
 
-  const titleElement = overlay.querySelector("[data-cd-title]");
-
-  if (titleElement) {
-    titleElement.textContent = title;
-  }
-}
-
-setTimeout(() => {
-  if (url && url !== "#") {
-    location.href = url;
-  }
-}, 1300);    }
+        setTimeout(() => {
+          if (url && url !== "#") {
+            location.href = url;
+          }
+        }, 1300);
 
       container.appendChild(button);
-
 
   } catch (error) {
     console.error(
