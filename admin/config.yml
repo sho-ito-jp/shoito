@@ -7,6 +7,7 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+
   - name: "discography"
     label: "ディスコグラフィー"
     folder: "content/discography"
@@ -25,3 +26,54 @@ collections:
       - label: "ジャケット色"
         name: "cover"
         widget: "color"
+
+
+  - name: "works"
+    label: "WORKS"
+    folder: "content/works"
+    create: true
+    slug: "{{slug}}"
+
+    fields:
+      - label: "タイトル"
+        name: "title"
+        widget: "string"
+
+      - label: "URL"
+        name: "url"
+        widget: "string"
+
+
+  - name: "stage"
+    label: "Stage"
+    folder: "content/stage"
+    create: true
+    slug: "{{slug}}"
+
+    fields:
+      - label: "日付"
+        name: "date"
+        widget: "date"
+        format: "YYYY / MM / DD"
+
+      - label: "イベント名"
+        name: "title"
+        widget: "string"
+
+      - label: "内容"
+        name: "description"
+        widget: "string"
+
+      - label: "左位置 (%)"
+        name: "left"
+        widget: "number"
+        value_type: "float"
+        min: 0
+        max: 100
+
+      - label: "上位置 (%)"
+        name: "top"
+        widget: "number"
+        value_type: "float"
+        min: 0
+        max: 100
