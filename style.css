@@ -183,3 +183,14 @@ textarea{min-height:180px;resize:vertical}
   white-space: nowrap;
   font-weight: 400;
 }
+
+/* CD表示テスト */
+.cd-overlay.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.cd-overlay.show .cd {
+  transform: translateY(0) scale(1) !important;
+  opacity: 1 !important;
+}
