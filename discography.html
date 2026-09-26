@@ -39,7 +39,79 @@
     <div class="meta">翔 / DISCOGRAPHY</div>
     <h1 class="page-title">ディスコグラフィー</h1>
     <p class="lead">探してください。どこに何があるかは、あまり気にしないでください。</p>
-    <div class="disco-cloud"><button class="track" data-track data-title="無〇" data-url="https://www.youtube.com/" data-cover="#d8d0c8" style="left:10%;top:8%;transform:rotate(0deg)">無〇</button><button class="track" data-track data-title="軌跡の初" data-url="https://www.youtube.com/" data-cover="#b9c6d8" style="left:52%;top:12%;transform:rotate(3deg)">軌跡の初</button><button class="track" data-track data-title="文章" data-url="https://www.youtube.com/" data-cover="#d9d3a8" style="left:22%;top:25%;transform:rotate(6deg)">文章</button><button class="track" data-track data-title="POT ATOTE" data-url="https://www.youtube.com/" data-cover="#c7d8c0" style="left:68%;top:30%;transform:rotate(-4deg)">POT ATOTE</button><button class="track" data-track data-title="核₂²" data-url="https://www.youtube.com/" data-cover="#d4b6b6" style="left:8%;top:43%;transform:rotate(-1deg)">核₂²</button><button class="track" data-track data-title="雨雲RECORDs" data-url="https://www.youtube.com/" data-cover="#aeb9c8" style="left:47%;top:49%;transform:rotate(2deg)">雨雲RECORDs</button><button class="track" data-track data-title="儚刻" data-url="https://www.youtube.com/" data-cover="#c7c1d8" style="left:75%;top:53%;transform:rotate(5deg)">儚刻</button><button class="track" data-track data-title="本来" data-url="https://www.youtube.com/" data-cover="#d6c3ad" style="left:28%;top:65%;transform:rotate(-5deg)">本来</button><button class="track" data-track data-title="Soaring Stars" data-url="https://www.youtube.com/" data-cover="#b7cbd0" style="left:62%;top:70%;transform:rotate(-2deg)">Soaring Stars</button><button class="track" data-track data-title="AVP" data-url="https://www.youtube.com/" data-cover="#d0c0c0" style="left:12%;top:78%;transform:rotate(1deg)">AVP</button></div>
+<div class="disco-cloud" id="discography-list">
+  <!-- CMSから自動生成 -->
+</div>
+
+<script>
+async function loadDiscography() {
+  const container = document.getElementById("discography-list");
+
+  try {
+    const response = await fetch(
+      "https://api.github.com/repos/sho-ito-jp/shoito/contents/content/discography"
+    );
+
+    if (!response.ok) throw new Error("GitHub API error");
+
+    const files = await response.json();
+
+    for (const file of files) {
+      if (!file.name.endsWith(".md")) continue;
+
+      const mdResponse = await fetch(file.download_url);
+      const text = await mdResponse.text();
+
+      const frontMatterMatch = text.match(
+        /^---\s*([\s\S]*?)\s*---/m
+      );
+
+      if (!frontMatterMatch) continue;
+
+      const frontMatter = frontMatterMatch[1];
+
+      const getValue = (name) => {
+        const match = frontMatter.match(
+          new RegExp("^" + name + ":\\s*(.+)$", "m")
+        );
+        return match ? match[1].trim() : "";
+      };
+
+      const title = getValue("title");
+      const url = getValue("url");
+      const cover = getValue("cover");
+      const left = getValue("left");
+      const top = getValue("top");
+      const rotate = getValue("rotate");
+
+      if (!title) continue;
+
+      const button = document.createElement("button");
+
+      button.className = "track";
+      button.setAttribute("data-track", "");
+      button.setAttribute("data-title", title);
+      button.setAttribute("data-url", url);
+      button.setAttribute("data-cover", cover);
+
+      button.textContent = title;
+
+      button.style.left = left + "%";
+      button.style.top = top + "%";
+      button.style.transform = `rotate(${rotate}deg)`;
+
+      container.appendChild(button);
+    }
+  } catch (error) {
+    console.error(
+      "ディスコグラフィーの読み込みに失敗しました:",
+      error
+    );
+  }
+}
+
+loadDiscography();
+</script>
   </section>
 </main>
 <div class="cd-overlay" aria-hidden="true">
