@@ -1,6 +1,6 @@
 backend:
-  name: github
-  repo: sho-ito-jp/shoito
+  name: turbo-github
+  turbo_site_id: 1f72ca3f-e387-4bc2-9033-157c086d48de
   branch: main
 
 media_folder: "images/uploads"
