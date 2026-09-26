@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — 伊藤翔</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="contact-page" data-audio="contact.wav" data-audio-volume="0.28">
+
+<nav class="site-nav" aria-label="メインナビゲーション">
+  <a href="index.html" title="ホーム">●</a>
+  <a href="about.html" title="アバウト">伊</a>
+  <a href="works.html" title="ワークス">藤</a>
+  <a href="discography.html" title="ディスコグラフィー">翔</a>
+  <a href="stage.html" title="ステージ">台</a>
+  <a href="https://example.com" data-diary-link title="ダイアリー">書</a>
+  <a href="contact.html" title="コンタクト">問</a>
+  <small>SHO ITO / 2026</small>
+</nav>
+<button class="sound-toggle" data-sound-toggle type="button">音 ON</button>
+
+
+<main class="page contact-page">
+  <div class="questions"><div class="question" style="top:0%;animation-delay:-0.0s">何を作る？</div><div class="question" style="top:12%;animation-delay:-1.4s">どこから始める？</div><div class="question" style="top:24%;animation-delay:-2.8s">これは誰のもの？</div><div class="question" style="top:36%;animation-delay:-4.199999999999999s">音は場所を変える？</div><div class="question" style="top:48%;animation-delay:-5.6s">作品はいつ完成する？</div><div class="question" style="top:60%;animation-delay:-7.0s">地元とは何？</div><div class="question" style="top:72%;animation-delay:-8.399999999999999s">表現する必要はある？</div><div class="question" style="top:84%;animation-delay:-9.799999999999999s">あなたは何者？</div><div class="question" style="top:96%;animation-delay:-11.2s">何を残す？</div></div>
+  <section class="contact-card panel">
+    <div class="meta">問 / CONTACT</div>
+    <h1 class="page-title">コンタクト</h1>
+    <p>お問い合わせ・ご連絡はこちらから。</p>
+    <form action="#" method="post" onsubmit="event.preventDefault();alert('送信処理はここに接続してください。');">
+      <label>名前<input name="name" required></label>
+      <label>メールアドレス<input type="email" name="email" required></label>
+      <label>本文<textarea name="message" required></textarea></label>
+      <button class="submit" type="submit">送信</button>
+    </form>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

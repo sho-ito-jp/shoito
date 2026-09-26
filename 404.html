@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-<title>404 - 伊藤翔</title>
-<link rel="icon" href="is logo.png">
 <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>404 — 伊藤翔</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-<center>
+<body class="error-page" data-audio="404.wav" data-audio-volume="0.45">
 
-<main>
-<div>
-<table>
-<tr>
-<td align="right"><a class="botan" href="index.html" target"_blank" >ゴートゥーホーム - Go to home</a>
-</td>
-</tr>
-</table>
-<table>
-<tr>
-<td>
-<H2>伊藤翔の裏ページ</H2>
-Sho Ito’s secret page.( This page is 404 page.)
-<p>404ページに辿り着いてしまったあなたのために、私の裏ページを作りました。</p>
-<p>今はまだ未完成のままですが、いつか、何かを置こうかなと思っています。</p>
-</td>
-</tr>
-</table>
-<H2>&#169;2026 伊藤翔</H2>
-</div>
+<nav class="site-nav" aria-label="メインナビゲーション">
+  <a href="index.html" title="ホーム">●</a>
+  <a href="about.html" title="アバウト">伊</a>
+  <a href="works.html" title="ワークス">藤</a>
+  <a href="discography.html" title="ディスコグラフィー">翔</a>
+  <a href="stage.html" title="ステージ">台</a>
+  <a href="https://example.com" data-diary-link title="ダイアリー">書</a>
+  <a href="contact.html" title="コンタクト">問</a>
+  <small>SHO ITO / 2026</small>
+</nav>
+<button class="sound-toggle" data-sound-toggle type="button">音 ON</button>
+
+
+<main class="page error-page">
+  <span class="noise-word" style="left:0%;top:0%;animation-delay:-0.0s">404</span><span class="noise-word" style="left:17%;top:23%;animation-delay:-0.21s">ERROR</span><span class="noise-word" style="left:34%;top:46%;animation-delay:-0.42s">NO</span><span class="noise-word" style="left:51%;top:69%;animation-delay:-0.63s">WHY</span><span class="noise-word" style="left:68%;top:4%;animation-delay:-0.84s">工事中</span><span class="noise-word" style="left:85%;top:27%;animation-delay:-1.05s">授業中</span><span class="noise-word" style="left:9%;top:50%;animation-delay:-1.26s">音量注意</span><span class="noise-word" style="left:26%;top:73%;animation-delay:-1.47s">NOT FOUND</span><span class="noise-word" style="left:43%;top:8%;animation-delay:-1.68s">404</span><span class="noise-word" style="left:60%;top:31%;animation-delay:-1.89s">？？？</span><span class="noise-word" style="left:77%;top:54%;animation-delay:-2.1s">STOP</span><span class="noise-word" style="left:1%;top:77%;animation-delay:-2.31s">GO</span><span class="noise-word" style="left:18%;top:12%;animation-delay:-2.52s">ここはどこ</span><span class="noise-word" style="left:35%;top:35%;animation-delay:-2.73s">404</span>
+  <div class="paint" style="left:8%;top:18%"></div>
+  <div class="paint" style="right:10%;bottom:20%;animation-delay:-.4s"></div>
+  <section style="position:relative;z-index:5;min-height:80vh;display:grid;place-items:center;text-align:center">
+    <div>
+      <div class="error-title">404</div>
+      <p style="font-size:22px;font-weight:800">ページが見つかりません。たぶん、どこかへ行きました。</p>
+      <a href="index.html">GO TO HOME</a>
+    </div>
+  </section>
 </main>
 
-</center>
+<script src="script.js"></script>
 </body>
 </html>
-
