@@ -27,6 +27,27 @@ collections:
         name: "cover"
         widget: "color"
 
+      - label: "左位置 (%)"
+        name: "left"
+        widget: "number"
+        value_type: "float"
+        min: 0
+        max: 100
+
+      - label: "上位置 (%)"
+        name: "top"
+        widget: "number"
+        value_type: "float"
+        min: 0
+        max: 100
+
+      - label: "回転角度"
+        name: "rotate"
+        widget: "number"
+        value_type: "float"
+        min: -180
+        max: 180
+
 
   - name: "works"
     label: "WORKS"
