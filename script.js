@@ -41,8 +41,7 @@
     });
   }
 
-  // Browsers generally block audible autoplay until a user gesture.
-  // Start the page ambience on the first gesture anywhere.
+
   const gesture = () => {
     startAudio();
     document.removeEventListener("pointerdown", gesture);
@@ -52,19 +51,26 @@
   document.addEventListener("keydown", gesture, {once:true});
   updateToggle();
 
-  // Diary: play a writing sound, then redirect.
-  document.querySelectorAll("[data-diary-link]").forEach(link => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const href = link.href;
-      const s = new Audio("diary.wav");
-      s.volume = 0.7;
-      s.play().catch(() => {});
-      setTimeout(() => location.href = href, 520);
-    });
-  });
+  // Diary
+document.querySelectorAll('[data-diary-link]').forEach(link => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
 
-  // Discography: cassette-like click sound, then CD animation and redirect.
+    const newTab = window.open('', '_blank');
+
+    const audio = new Audio('diary.wav');
+    audio.volume = 0.28;
+    audio.play().catch(() => {});
+
+    setTimeout(() => {
+      if (newTab) {
+        newTab.location.href = link.href;
+      }
+    }, 500);
+  });
+});
+
+  // Discography
   const overlay = document.querySelector(".cd-overlay");
   const discSound = () => {
     const s = new Audio("disc.wav");
