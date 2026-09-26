@@ -65,9 +65,9 @@ collections:
     slug: "{{slug}}"
 
     fields:
-- label: "日付"
-  name: "date"
-  widget: "string"
+      - label: "日付"
+        name: "date"
+        widget: "string"
 
       - label: "イベント名"
         name: "title"
