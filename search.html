@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>探す - 伊藤翔</title>
+</head>
+
+<body>
+
+<h1>探す</h1>
+
+<form id="searchForm">
+    <input id="keyword" type="text">
+    <button type="submit">探す</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+document.getElementById("searchForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const keyword = document.getElementById("keyword").value;
+
+    if (keyword === "伊藤翔") {
+        document.getElementById("result").innerHTML =
+            '<a href="something.html">見つけました。</a>';
+    } else if (keyword === "25") {
+        document.getElementById("result").innerHTML =
+            '<a href="numbers.html">25</a>';
+    } else {
+        document.getElementById("result").textContent =
+            "何も見つかりませんでした。";
+    }
+});
+</script>
+
+<p><a href="index.html">ゴートゥーホーム - Go to home</a></p>
+
+</body>
+</html>
