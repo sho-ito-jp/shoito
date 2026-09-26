@@ -42,17 +42,9 @@
 <div class="disco-cloud" id="discography-list">
   <!-- CMSから自動生成 -->
 </div>
-
 <script>
 async function loadDiscography() {
   const container = document.getElementById("discography-list");
-  const overlay = document.querySelector(".cd-overlay");
-
-  const discSound = () => {
-    const s = new Audio("disc.wav");
-    s.volume = 0.55;
-    s.play().catch(() => {});
-  };
 
   try {
     const response = await fetch(
@@ -60,7 +52,7 @@ async function loadDiscography() {
     );
 
     if (!response.ok) {
-      throw new Error("GitHub API error");
+      throw new Error("GitHub API error: " + response.status);
     }
 
     const files = await response.json();
@@ -68,82 +60,45 @@ async function loadDiscography() {
     for (const file of files) {
       if (!file.name.endsWith(".md")) continue;
 
-      const mdResponse = await fetch(file.download_url);
-      const text = await mdResponse.text();
+      const response = await fetch(file.download_url);
+      const text = await response.text();
 
-      const frontMatterMatch = text.match(
-        /^---\s*([\s\S]*?)\s*---/m
-      );
+      const match = text.match(/^---\s*([\s\S]*?)\s*---/);
 
-      if (!frontMatterMatch) continue;
+      if (!match) continue;
 
-      const frontMatter = frontMatterMatch[1];
+      const frontMatter = match[1];
 
-      const getValue = (name) => {
-        const match = frontMatter.match(
-          new RegExp("^" + name + ":\\s*(.+)$", "m")
-        );
-        return match ? match[1].trim() : "";
-      };
+      const titleMatch = frontMatter.match(/^title:\s*(.+)$/m);
+      const urlMatch = frontMatter.match(/^url:\s*(.+)$/m);
 
-      const title = getValue("title");
-      const url = getValue("url");
-      const cover = getValue("cover");
-      const left = getValue("left");
-      const top = getValue("top");
-      const rotate = getValue("rotate");
+      if (!titleMatch) continue;
 
-      if (!title) continue;
+      const title = titleMatch[1].trim();
+      const url = urlMatch ? urlMatch[1].trim() : "#";
 
       const button = document.createElement("button");
 
       button.className = "track";
-      button.setAttribute("data-track", "");
-      button.dataset.title = title;
-      button.dataset.url = url;
-      button.dataset.cover = cover;
-
       button.textContent = title;
 
-      button.style.left = (left || 10) + "%";
-      button.style.top = (top || 10) + "%";
-      button.style.transform = `rotate(${rotate || 0}deg)`;
+      button.style.position = "relative";
+      button.style.left = "auto";
+      button.style.top = "auto";
+      button.style.margin = "10px";
 
       button.addEventListener("click", () => {
-        discSound();
-
-        if (overlay) {
-          overlay.classList.add("show");
-
-          const cd = overlay.querySelector(".cd");
-
-          if (cd) {
-            cd.style.setProperty("--disc", cover || "#ddd");
-          }
-
-          const titleElement =
-            overlay.querySelector("[data-cd-title]");
-
-          if (titleElement) {
-            titleElement.textContent = title;
-          }
+        if (url !== "#") {
+          location.href = url;
         }
-
-        setTimeout(() => {
-          if (url && url !== "#") {
-            location.href = url;
-          }
-        }, 1300);
       });
 
       container.appendChild(button);
     }
 
   } catch (error) {
-    console.error(
-      "ディスコグラフィーの読み込みに失敗しました:",
-      error
-    );
+    console.error(error);
+    container.textContent = "読み込みエラー: " + error.message;
   }
 }
 
