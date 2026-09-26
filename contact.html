@@ -39,12 +39,65 @@
     <div class="meta">問 / CONTACT</div>
     <h1 class="page-title">コンタクト</h1>
     <p>お問い合わせ・ご連絡はこちらから。</p>
-    <form action="#" method="post" onsubmit="event.preventDefault();alert('送信処理はここに接続してください。');">
-      <label>名前<input name="name" required></label>
-      <label>メールアドレス<input type="email" name="email" required></label>
-      <label>本文<textarea name="message" required></textarea></label>
-      <button class="submit" type="submit">送信</button>
-    </form>
+<form action="https://api.lazyforms.com/f/4270da2c-4a7d-42c2-b792-b78dbdeb811d" method="POST">
+
+  <label for="name">
+    名前 - Name :
+    <input
+      id="name"
+      type="text"
+      name="name"
+      placeholder="お名前を入力してください"
+      required
+    >
+  </label>
+
+  <label for="email">
+    メールアドレス - Email :
+    <input
+      id="email"
+      type="email"
+      name="email"
+      placeholder="info@shoito.jp"
+      required
+    >
+  </label>
+
+  <label for="company">
+    会社名 - Company :
+    <input
+      id="company"
+      type="text"
+      name="company"
+      placeholder="会社名、団体名を入力してください"
+    >
+  </label>
+
+  <label for="contact-type">
+    内容 - Contact Type:
+    <select id="contact-type" name="contact_type" required>
+      <option value="" selected disabled>内容を選択してください</option>
+      <option value="制作依頼">伊藤翔への製作依頼</option>
+      <option value="メディア掲載">伊藤翔に関するメディア等の掲載</option>
+      <option value="その他">その他、伊藤翔に関するお問い合わせ</option>
+    </select>
+  </label>
+
+  <label for="message">
+    Message :
+    <textarea
+      id="message"
+      name="message"
+      placeholder="メッセージを入力してください"
+      required
+    ></textarea>
+  </label>
+
+  <button class="submit" type="submit">
+    送る - Send →
+  </button>
+
+</form>
   </section>
 </main>
 
