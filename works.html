@@ -3,22 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>伊藤翔</title>
+
+<title>WORKS - 伊藤翔</title>
+
 <link rel="icon" href="is logo.png">
 <link rel="stylesheet" href="style.css">
-<!-- OGP / Social Preview -->
-<meta property="og:title" content="伊藤翔">
-<meta property="og:description" content="伊藤翔">
+
+<meta property="og:title" content="WORKS - 伊藤翔">
+<meta property="og:description" content="WORKS - 伊藤翔">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shoito.jp/works">
 <meta property="og:image" content="https://shoito.pages.dev/ogp.png">
 
-<!-- X向け -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="伊藤翔">
-<meta name="twitter:description" content="伊藤翔">
+<meta name="twitter:title" content="WORKS - 伊藤翔">
+<meta name="twitter:description" content="WORKS - 伊藤翔">
 <meta name="twitter:image" content="https://shoito.pages.dev/ogp.png">
 </head>
+
 <body class="works-page" data-audio="works.wav" data-audio-volume="0.28">
 
 <nav class="site-nav" aria-label="メインナビゲーション">
@@ -27,34 +29,56 @@
   <a href="works.html" title="ワークス">藤</a>
   <a href="discography.html" title="ディスコグラフィー">翔</a>
   <a href="stage.html" title="ステージ">台</a>
-  <a href="https://note.com/shoitonote" data-diary-link title="ダイアリー" target="_blank">書</a>
+  <a href="https://note.com/shoitonote"
+     data-diary-link
+     title="ダイアリー"
+     target="_blank">書</a>
   <a href="contact.html" title="コンタクト">問</a>
+
   <small>SHO ITO / 2026</small>
 </nav>
-<button class="sound-toggle" data-sound-toggle type="button">音 ON</button>
+
+<button class="sound-toggle" data-sound-toggle type="button">
+  音 ON
+</button>
 
 
 <main class="page works-page">
+
   <section class="section">
+
     <div class="meta">藤 / WORKS</div>
-<div class="hanging" id="works-list">
-  <!-- CMSから自動生成 -->
-</div>
+
+    <h1 class="page-title">ワークス</h1>
+
+    <div class="works-list" id="works-list">
+      <!-- CMSから自動生成 -->
+    </div>
+
+  </section>
+
+</main>
+
 
 <script>
 async function loadWorks() {
+
   const container = document.getElementById("works-list");
 
   try {
+
     const response = await fetch(
       "https://api.github.com/repos/sho-ito-jp/shoito/contents/content/works"
     );
 
-    if (!response.ok) throw new Error("GitHub API error");
+    if (!response.ok) {
+      throw new Error("GitHub API error");
+    }
 
     const files = await response.json();
 
     for (const file of files) {
+
       if (!file.name.endsWith(".md")) continue;
 
       const mdResponse = await fetch(file.download_url);
@@ -70,6 +94,8 @@ async function loadWorks() {
       const url = match[2].trim();
 
       const link = document.createElement("a");
+
+      link.className = "work-item";
       link.href = url;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
@@ -77,16 +103,21 @@ async function loadWorks() {
 
       container.appendChild(link);
     }
+
   } catch (error) {
-    console.error("WORKSの読み込みに失敗しました:", error);
+
+    console.error(
+      "WORKSの読み込みに失敗しました:",
+      error
+    );
+
   }
 }
 
 loadWorks();
 </script>
-  </section>
-</main>
 
 <script src="script.js"></script>
+
 </body>
 </html>
