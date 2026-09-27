@@ -66,5 +66,5 @@ collections:
 
     fields:
       - label: "問い"
-        name: "question"
+        name: "title"
         widget: "string"
