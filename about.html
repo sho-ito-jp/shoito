@@ -153,8 +153,6 @@ async function startTyping() {
     }
 
     const fullText = words[wordIndex];
-    
-    // 💡 ブラウザの「Intl.Segmenter」機能を使って文章を単語/文節ごとに自動分解
     const segmenter = new Intl.Segmenter('ja-JP', { granularity: 'word' });
     const segments = Array.from(segmenter.segment(fullText));
     
@@ -164,54 +162,52 @@ async function startTyping() {
     function typeChunk() {
         if (chunkIndex < segments.length) {
             const segment = segments[chunkIndex].segment;
-            
-            // 💡 漢字やカタカナを「ひらがな（読み）」に自動変換するブラウザの裏技
-            // （完全に正確ではないですが、タイピング演出用としてはほぼ完璧に機能します）
             const kanaSegment = segment.replace(/[ァ-ン]/g, s => String.fromCharCode(s.charCodeAt(0) - 0x60));
-            // ひらがなをローマ字に自動変換
             const romaText = convertToRoma(kanaSegment);
-
-            // アルファベットや数字、元々ローマ字のものはそのまま使う
             const finalRoma = romaText === "" ? segment.toLowerCase() : romaText;
             
             let romaCharIndex = 0;
 
+            // ⚡ 1ミリ秒間隔で、しかも一気に2文字ずつ進めることで「ほぼ一瞬」を実現
             const interval = setInterval(() => {
                 if (romaCharIndex <= finalRoma.length) {
                     const typedRoma = finalRoma.substring(0, romaCharIndex);
                     currentLine.innerHTML = `<span class="converting">${completedText + typedRoma}</span>`;
                     scrollToBottom();
-                    romaCharIndex++;
+                    romaCharIndex += 2; // 👈 ここを2文字ずつに跳ね上げました
                 } else {
                     clearInterval(interval);
                     
-                    // ローマ字を打ち終えたらパッと日本語に変換
+                    // ⚡ ローマ字から日本語への変換ディレイをほぼゼロ（5ms）に
                     setTimeout(() => {
                         completedText += segment;
                         currentLine.innerHTML = `<span class="converting">${completedText}</span>`;
                         scrollToBottom();
 
+                        // ⚡ 次の文節に進むまでのウエイトもほぼゼロ（10ms）に
                         setTimeout(() => {
                             chunkIndex++;
                             typeChunk();
-                        }, 60); 
-                    }, 30); 
+                        }, 10); 
+                    }, 5); 
                 }
-            }, 25); // 打ち込みスピード
+            }, 1); // 👈 インターバルを最短の1ミリ秒に
         } else {
-            // 1行完成したら確定
+            // ⚡ 1行が完成して確定（Enterキー）するまでの余韻を限界までカット（20ms）
             setTimeout(() => {
                 logArea.innerHTML += `<div>${fullText}</div>`;
                 currentLine.innerHTML = "";
                 wordIndex++;
                 scrollToBottom();
-                setTimeout(startTyping, 150); 
-            }, 80);
+                // ⚡ 次の行に移るスピード（50ms）
+                setTimeout(startTyping, 50); 
+            }, 20);
         }
     }
 
     typeChunk();
 }
+
 
 document.addEventListener("DOMContentLoaded", startTyping);
 </script>
