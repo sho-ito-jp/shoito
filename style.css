@@ -156,17 +156,50 @@ button,input,textarea{font:inherit}
   color: #f1f1f1;
 }
 
-/* stage */
-.stage-page{background:#f1f1f1}
-.stage-board{position:relative;min-height:75vh}
-.event-card{
-  position:absolute;width:min(280px,42vw);padding:22px;background:#fff;
-  border:2px solid #222;box-shadow:8px 10px 0 #222;
-  animation:wobble 4s ease-in-out infinite;
+/* STAGE */
+
+.stage-page {
+  background: #f1f1f1;
 }
-@keyframes wobble{50%{transform:rotate(2deg) translateY(-8px)}}
-.walking{position:fixed;right:12%;bottom:12%;font-size:80px;opacity:.08;animation:walk 1.1s steps(2) infinite}
-@keyframes walk{50%{transform:translateX(90px)}}
+
+.stage-list {
+  margin-top: 60px;
+  border-top: 1px solid #171717;
+}
+
+.stage-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 40px;
+
+  padding: 28px 0;
+
+  border-bottom: 1px solid #171717;
+}
+
+.stage-date {
+  font-size: 13px;
+  color: #777;
+  letter-spacing: .05em;
+}
+
+.stage-info h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.stage-info p {
+  margin: 0;
+  line-height: 1.8;
+}
+
+@media (max-width: 700px) {
+  .stage-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
 
 /* contact */
 .contact-page{background:#f1f1f1;overflow:hidden}
