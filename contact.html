@@ -110,11 +110,15 @@ async function loadQuestions() {
       "https://api.github.com/repos/sho-ito-jp/shoito/contents/content/questions"
     );
 
+    console.log("questions API:", response);
+
     if (!response.ok) {
       throw new Error("GitHub API error: " + response.status);
     }
 
     const files = await response.json();
+
+    console.log("questions files:", files);
 
     const questions = [];
 
@@ -124,21 +128,28 @@ async function loadQuestions() {
       const response = await fetch(file.download_url);
       const text = await response.text();
 
+      console.log("question md:", file.name, text);
+
       const match = text.match(/^---\s*([\s\S]*?)\s*---/);
 
       if (!match) continue;
 
       const frontMatter = match[1];
 
-const questionMatch =
-  frontMatter.match(/^title:\s*(.+)$/m);
+      const questionMatch =
+        frontMatter.match(/^question:\s*(.+)$/m);
 
       if (!questionMatch) continue;
 
       questions.push(questionMatch[1].trim());
     }
 
-    if (questions.length === 0) return;
+    console.log("questions:", questions);
+
+    if (questions.length === 0) {
+      questionElement.textContent = "問いがありません";
+      return;
+    }
 
     let questionIndex = 0;
     let charIndex = 0;
@@ -183,16 +194,12 @@ const questionMatch =
     typeQuestion();
 
   } catch (error) {
-    console.error(
-      "問いの読み込みに失敗しました:",
-      error
-    );
+    console.error("問いの読み込みに失敗しました:", error);
+    questionElement.textContent = "読み込みエラー";
   }
 }
 
 loadQuestions();
-
-
- <src="script.js"></script>
+</script>
 </body>
 </html>
