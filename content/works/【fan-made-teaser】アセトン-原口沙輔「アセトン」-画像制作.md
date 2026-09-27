@@ -1,4 +1,4 @@
 ---
-title: 【fan-made teaser】アセトン - 原口沙輔「アセトン」(画像制作)
-url: https://www.youtube.com/watch?v=cMbETM_-NKM
+title: 今夜も彗星になりたくて、「シチュエーションボイス」(BGM制作)
+url: https://www.youtube.com/watch?v=xYRZ1RUqang
 ---
