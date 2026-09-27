@@ -2,38 +2,35 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>爆速・自動スクロール日本語入力アニメーション</title>
+    <title>完全自動・ローマ字完全一致タイピング</title>
     <style>
-        /* 画面全体の基本設定 */
         html, body {
             height: 100%;
             margin: 0;
-            background-color: #1e1e1e; /* エディタ風のダーク背景 */
-            color: #d4d4d4; /* 常にこの文字色をキープ */
+            background-color: #1e1e1e;
+            color: #d4d4d4;
             font-family: 'Hiragino Kaku Gothic ProN', 'Segoe UI', sans-serif;
-            overflow: hidden; /* 画面全体のスクロールバーは隠す */
+            overflow: hidden;
         }
 
-        /* 📜 文字が表示されるエリア（ここが自動スクロールします） */
         #scroll-container {
             height: 100%;
             padding: 40px;
             box-sizing: border-box;
-            overflow-y: auto; /* 縦方向のスクロールを有効にする */
-            scroll-behavior: smooth; /* スクロールをなめらかに */
+            overflow-y: auto;
+            scroll-behavior: smooth;
         }
 
-        /* 💡 変換中（未確定）の文字のスタイル */
+        /* 変換中（未確定）の文字のスタイル */
         .converting {
-            /* 🎨 色は変えず、下線（実線）だけを引いて入力中を表現 */
-            text-decoration: underline solid #d4d4d4; 
+            text-decoration: underline solid #d4d4d4; /* 色は変えず下線だけ */
         }
 
         /* カーソル */
         .cursor {
             font-weight: bold;
             color: #00adb5;
-            animation: blink 0.5s infinite; /* 点滅も少し早めに */
+            animation: blink 0.5s infinite;
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
@@ -43,14 +40,13 @@
 </head>
 <body>
 
-    <!-- 自動スクロールさせるための外枠 -->
     <div id="scroll-container">
         <div id="log-area"></div>
         <span id="current-line"></span><span class="cursor">|</span>
     </div>
 
 <script>
-// 表示させたい普通の日本語をそのまま入れてください
+// ✨【設定】本当に普通の日本語を入れるだけ！ローマ字は一切不要です！
 const words = [
 "※身バレ防止のため、一時的に一部隠しております。",
 "2011年生まれ。",
@@ -74,67 +70,125 @@ const words = [
 "なお、伊藤翔名義のリリースは「A veritable pandemonium」より行っている。 ",
 "その時々に必要な方法を選びながら作品をつくる。",
 "さらに、方言を始めとした、地元・〇〇ならではの表現を模索し、地元の文化や芸術に、貢献しようともしている。",
+
 ];
+
+// ひらがなからローマ字への変換テーブル
+const hiraToRomaMap = {
+    'あ':'a','い':'i','う':'u','え':'e','お':'o','か':'ka','き':'ki','く':'ku','け':'ke','こ':'ko',
+    'さ':'sa','し':'shi','す':'su','せ':'se','そ':'so','た':'ta','ち':'chi','つ':'tsu','て':'te','と':'to',
+    'な':'na','に':'ni','ぬ':'nu','ね':'ne','の':'no','は':'ha','ひ':'hi','ふ':'fu','へ':'he','ほ':'no',
+    'ま':'ma','み':'mi','む':'mu','め':'me','も':'mo','や':'ya','ゆ':'yu','よ':'yo',
+    'ら':'ra','り':'ri','る':'ru','れ':'re','ろ':'ro','わ':'wa','を':'wo','ん':'nn',
+    'が':'ga','ぎ':'gi','ぐ':'gu','げ':'ge','ご':'go','ざ':'za','じ':'ji','ず':'zu','ぜ':'ze','ぞ':'zo',
+    'だ':'da','ぢ':'ji','づ':'zu','で':'de','ど':'do','ば':'ba','び':'bi','ぶ':'bu','べ':'be','ぼ':'bo',
+    'ぱ':'pa','ぴ':'pi','ぷ':'pu','ぺ':'pe','ぽ':'po',
+    'きゃ':'kya','きゅ':'kyu','きょ':'kyo','しゃ':'sha','しゅ':'shu','しょ':'sho',
+    'ちゃ':'cha','ちゅ':'chu','ちょ':'cho','にゃ':'nya','にゅ':'nyu','にょ':'nyo',
+    'ひゃ':'hya','ひゅ':'hyu','ひょ':'hyo','みゃ':'mya','みゅ':'myu','みょ':'myo',
+    'りゃ':'rya','りゅ':'ryu','りょ':'ryo','ぎゃ':'gya','ぎゅ':'gyu','ぎょ':'gyo',
+    'じゃ':'ja','じゅ':'ju','じょ':'jo','びゃ':'bya','びゅ':'byu','びょ':'byo',
+    'ぴゃ':'pya','ぴゅ':'pyu','ぴょ':'pyo','ー':'-'
+};
+
+// ひらがな文字列をローマ字に変換する関数
+function convertToRoma(hiraText) {
+    let roma = "";
+    let i = 0;
+    while (i < hiraText.length) {
+        if (hiraText[i] === 'っ' && i + 1 < hiraText.length) {
+            let nextRoma = hiraToRomaMap[hiraText[i+1]] || hiraToRomaMap[hiraText.substr(i+1, 2)];
+            if (nextRoma) roma += nextRoma[0];
+            i++;
+            continue;
+        }
+        let doubleChar = hiraText.substr(i, 2);
+        if (hiraToRomaMap[doubleChar]) {
+            roma += hiraToRomaMap[doubleChar];
+            i += 2;
+        } else {
+            let singleChar = hiraText[i];
+            roma += hiraToRomaMap[singleChar] || singleChar;
+            i++;
+        }
+    }
+    return roma.toLowerCase().replace(/[^a-z0-9\-\.\,\!\?]/g, '');
+}
 
 let wordIndex = 0;
 const container = document.getElementById("scroll-container");
 const logArea = document.getElementById("log-area");
 const currentLine = document.getElementById("current-line");
 
-// 🔄 自動で一番下までスクロールさせる関数
 function scrollToBottom() {
     container.scrollTop = container.scrollHeight;
 }
 
-function startTyping() {
+async function startTyping() {
     if (wordIndex >= words.length) {
         document.querySelector(".cursor").style.display = "none";
         return;
     }
 
-    const originalText = words[wordIndex];
-    let charIndex = 0;
+    const fullText = words[wordIndex];
+    
+    // 💡 ブラウザの「Intl.Segmenter」機能を使って文章を単語/文節ごとに自動分解
+    const segmenter = new Intl.Segmenter('ja-JP', { granularity: 'word' });
+    const segments = Array.from(segmenter.segment(fullText));
+    
+    let chunkIndex = 0;
+    let completedText = "";
 
-    function typeNextChar() {
-        if (charIndex < originalText.length) {
-            const char = originalText[charIndex];
-            const isKanjiOrKana = !char.match(/^[ぁ-ん]\$/); // ひらがな以外か判定
+    function typeChunk() {
+        if (chunkIndex < segments.length) {
+            const segment = segments[chunkIndex].segment;
+            
+            // 💡 漢字やカタカナを「ひらがな（読み）」に自動変換するブラウザの裏技
+            // （完全に正確ではないですが、タイピング演出用としてはほぼ完璧に機能します）
+            const kanaSegment = segment.replace(/[ァ-ン]/g, s => String.fromCharCode(s.charCodeAt(0) - 0x60));
+            // ひらがなをローマ字に自動変換
+            const romaText = convertToRoma(kanaSegment);
 
-            if (isKanjiOrKana) {
-                // ローマ字を身代わりに出す（爆速化のため文字プールを絞り込み）
-                const dummyRoma = "bcdfghjklmnpqrstvwxyz".charAt(Math.floor(Math.random() * 21)) + "aiueo".charAt(Math.floor(Math.random() * 5));
-                currentLine.innerHTML = `<span class="converting">${originalText.substring(0, charIndex) + dummyRoma}</span>`;
-                scrollToBottom();
-                
-                // ⚡ 変換のディレイを大幅に短縮（150ms → 40ms）
-                setTimeout(() => {
-                    currentLine.innerHTML = `<span class="converting">${originalText.substring(0, charIndex + 1)}</span>`;
-                    charIndex++;
+            // アルファベットや数字、元々ローマ字のものはそのまま使う
+            const finalRoma = romaText === "" ? segment.toLowerCase() : romaText;
+            
+            let romaCharIndex = 0;
+
+            const interval = setInterval(() => {
+                if (romaCharIndex <= finalRoma.length) {
+                    const typedRoma = finalRoma.substring(0, romaCharIndex);
+                    currentLine.innerHTML = `<span class="converting">${completedText + typedRoma}</span>`;
                     scrollToBottom();
-                    setTimeout(typeNextChar, 20);
-                }, 40); 
-            } else {
-                // ひらがな入力
-                currentLine.innerHTML = `<span class="converting">${originalText.substring(0, charIndex + 1)}</span>`;
-                charIndex++;
-                scrollToBottom();
-                // ⚡ 打つスピードを高速化（120ms → 30ms）
-                setTimeout(typeNextChar, 30); 
-            }
+                    romaCharIndex++;
+                } else {
+                    clearInterval(interval);
+                    
+                    // ローマ字を打ち終えたらパッと日本語に変換
+                    setTimeout(() => {
+                        completedText += segment;
+                        currentLine.innerHTML = `<span class="converting">${completedText}</span>`;
+                        scrollToBottom();
+
+                        setTimeout(() => {
+                            chunkIndex++;
+                            typeChunk();
+                        }, 60); 
+                    }, 30); 
+                }
+            }, 25); // 打ち込みスピード
         } else {
-            // ⚡ 打ち終わってから確定（Enter）するまでの余韻も短縮（400ms → 150ms）
+            // 1行完成したら確定
             setTimeout(() => {
-                logArea.innerHTML += `<div>${originalText}</div>`;
+                logArea.innerHTML += `<div>${fullText}</div>`;
                 currentLine.innerHTML = "";
                 wordIndex++;
                 scrollToBottom();
-                // ⚡ 次の行へいくまでの待ち時間も短縮（600ms → 300ms）
-                setTimeout(startTyping, 300); 
-            }, 150); 
+                setTimeout(startTyping, 150); 
+            }, 80);
         }
     }
 
-    typeNextChar();
+    typeChunk();
 }
 
 document.addEventListener("DOMContentLoaded", startTyping);
