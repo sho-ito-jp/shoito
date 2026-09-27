@@ -106,28 +106,6 @@ button,input,textarea{font:inherit}
   border-left-color: currentColor;
 }
 
-/* discography */
-.disco-page{background:#111;color:#eee}
-.disco-page .site-nav a{color:#eee}
-.disco-page .sound-toggle{background:#222;color:#fff;border-color:#fff}
-.disco-cloud{position:relative;min-height:75vh}
-.track{
-  position:absolute;padding:10px 14px;border:1px solid rgba(255,255,255,.28);
-  cursor:pointer;user-select:none;transition:.25s ease;
-}
-.track:hover{background:#fff;color:#111;transform:scale(1.08) rotate(0deg)!important}
-.cd-overlay{
-  position:fixed;inset:0;z-index:2000;pointer-events:none;display:grid;place-items:center;
-  opacity:0;
-}
-.cd-overlay.show{opacity:1}
-.cd{
-  width:min(52vw,420px);aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle at center,#222 0 8%,#bbb 8.5% 9%,#333 9.5% 11%,var(--disc,#ddd) 11.5% 100%);
-  border:8px solid #aaa;box-shadow:0 30px 80px #000;
-  transform:translateY(60vh) scale(.5);transition:transform 1.2s cubic-bezier(.2,.8,.2,1);
-}
-.cd-overlay.show .cd{transform:translateY(0) scale(1)}
 
 /* stage */
 .stage-page{background:#f1f1f1}
