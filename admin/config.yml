@@ -58,16 +58,3 @@ collections:
         name: "description"
         widget: "string"
 
-      - label: "左位置 (%)"
-        name: "left"
-        widget: "number"
-        value_type: "float"
-        min: 0
-        max: 100
-
-      - label: "上位置 (%)"
-        name: "top"
-        widget: "number"
-        value_type: "float"
-        min: 0
-        max: 100
