@@ -82,14 +82,14 @@ async function loadDiscography() {
       button.className = "track";
       button.textContent = title;
 
-const left = frontMatter.match(/^left:\s*(.+)$/m);
-const top = frontMatter.match(/^top:\s*(.+)$/m);
-const rotate = frontMatter.match(/^rotate:\s*(.+)$/m);
+      /* ランダム配置 */
+      const left = 5 + Math.random() * 85;
+      const top = 5 + Math.random() * 80;
+      const rotate = -8 + Math.random() * 16;
 
-button.style.left = (left ? left[1].trim() : 10) + "%";
-button.style.top = (top ? top[1].trim() : 10) + "%";
-button.style.transform =
-  `rotate(${rotate ? rotate[1].trim() : 0}deg)`;
+      button.style.left = left + "%";
+      button.style.top = top + "%";
+      button.style.transform = `rotate(${rotate}deg)`;
 
       button.addEventListener("click", () => {
         if (url !== "#") {
