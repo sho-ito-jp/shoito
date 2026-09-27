@@ -101,7 +101,7 @@
 
 </form>
   </section>
-</main>
+
 
 <script>
 async function loadQuestions() {
@@ -117,8 +117,6 @@ async function loadQuestions() {
     }
 
     const files = await response.json();
-
-    const questions = [];
 
     for (const file of files) {
       if (!file.name.endsWith(".md")) continue;
@@ -137,55 +135,20 @@ async function loadQuestions() {
 
       if (!questionMatch) continue;
 
-      questions.push(questionMatch[1].trim());
-    }
-
-    if (questions.length === 0) return;
-
-    let index = 0;
-
-    function showNextQuestion() {
-      if (index >= questions.length) return;
-
-      const text = questions[index];
-
       const question = document.createElement("div");
-      question.className = "contact-question typing";
+      question.className = "contact-question";
+      question.textContent = questionMatch[1].trim();
 
       container.appendChild(question);
-
-      let charIndex = 0;
-
-      function type() {
-        question.textContent = text.slice(0, charIndex);
-
-        charIndex++;
-
-        if (charIndex <= text.length) {
-          setTimeout(type, 60);
-        } else {
-          question.classList.remove("typing");
-
-          index++;
-
-          setTimeout(showNextQuestion, 600);
-        }
-      }
-
-      type();
     }
 
-    showNextQuestion();
-
   } catch (error) {
-    console.error(
-      "問いの読み込みに失敗しました:",
-      error
-    );
+    console.error("問いの読み込みに失敗しました:", error);
   }
 }
 
 loadQuestions();
 </script>
+</main>
 </body>
 </html>
