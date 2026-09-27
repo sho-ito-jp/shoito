@@ -205,55 +205,29 @@ button,input,textarea{font:inherit}
 .contact-page{background:#f1f1f1;overflow:hidden}
 .questions{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.16}
 .question{position:absolute;font-size:clamp(20px,3vw,48px);white-space:nowrap;animation:float 14s linear infinite}
-.contact-question {
+#contact-questions {
   position: fixed;
   left: 140px;
-  bottom: 32px;
+  right: 24px;
+  bottom: 24px;
 
   z-index: 0;
   pointer-events: none;
 
-  font-size: 11px;
-  line-height: 1.8;
-  color: #777;
-
-  white-space: nowrap;
-}
-
-.contact-question::after {
-  content: "｜";
-  animation: contact-cursor 1s steps(1) infinite;
-}
-
-.contact-questions {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 1;
-
-  width: min(420px, 40vw);
-
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
   font-size: 11px;
-  line-height: 1.8;
-  color: #777;
-
-  text-align: right;
+  line-height: 1.7;
+  color: rgba(0, 0, 0, 0.35);
 }
 
 .contact-question {
   display: block;
-  position: relative;
-
   width: 100%;
-  min-height: 20px;
-
   margin: 0;
   padding: 0;
-
-  white-space: normal;
-  overflow-wrap: break-word;
 }
 .contact-question.typing::after {
   content: "｜";
