@@ -136,8 +136,7 @@ button,input,textarea{font:inherit}
 
   padding: 8px 12px;
 
-  
-  background: transparent;
+
 
   color: #171717;
 
@@ -152,8 +151,8 @@ button,input,textarea{font:inherit}
 }
 
 .track:hover {
-  background: #171717;
-  color: #f1f1f1;
+  background: #f1f1f1;
+  color: #171717;
 }
 
 /* STAGE */
