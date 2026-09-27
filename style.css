@@ -179,7 +179,7 @@ textarea{min-height:180px;resize:vertical}
   transform: translate(-50%, -50%);
   writing-mode: vertical-rl;
   text-orientation: upright;
-  font-size: clamp(2.4rem, 7vw, 5.5rem);
+font-size: 32px;
   line-height: 1;
   letter-spacing: 0.16em;
   white-space: nowrap;
