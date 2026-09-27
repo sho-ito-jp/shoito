@@ -106,6 +106,55 @@ button,input,textarea{font:inherit}
   border-left-color: currentColor;
 }
 
+/* =========================
+   DISCOGRAPHY
+   ========================= */
+
+.disco-page {
+  background: #111;
+  color: #eee;
+}
+
+.disco-page .site-nav a {
+  color: #eee;
+}
+
+.disco-page .sound-toggle {
+  background: #222;
+  color: #fff;
+  border-color: #fff;
+}
+
+.disco-cloud {
+  position: relative;
+  min-height: 75vh;
+  margin-top: 40px;
+}
+
+.track {
+  position: absolute;
+
+  padding: 8px 12px;
+
+  border: 1px solid rgba(255,255,255,.35);
+  background: transparent;
+
+  color: #eee;
+
+  cursor: pointer;
+  user-select: none;
+
+  font-size: 16px;
+
+  transition:
+    background .15s ease,
+    color .15s ease;
+}
+
+.track:hover {
+  background: #eee;
+  color: #111;
+}
 
 /* stage */
 .stage-page{background:#f1f1f1}
