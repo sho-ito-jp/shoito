@@ -203,8 +203,31 @@ button,input,textarea{font:inherit}
 
 /* contact */
 .contact-page{background:#f1f1f1;overflow:hidden}
-.questions{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.16}
-.question{position:absolute;font-size:clamp(20px,3vw,48px);white-space:nowrap;animation:float 14s linear infinite}
+.contact-question {
+  position: fixed;
+  left: 140px;
+  bottom: 32px;
+
+  z-index: 0;
+  pointer-events: none;
+
+  font-size: 11px;
+  line-height: 1.8;
+  color: #777;
+
+  white-space: nowrap;
+}
+
+.contact-question::after {
+  content: "｜";
+  animation: contact-cursor 1s steps(1) infinite;
+}
+
+@keyframes contact-cursor {
+  50% {
+    opacity: 0;
+  }
+}
 @keyframes float{from{transform:translateX(-20vw) translateY(20px)}to{transform:translateX(120vw) translateY(-40px)}}
 .contact-card{position:relative;z-index:2;max-width:720px;margin:0 auto}
 form{display:grid;gap:18px}
