@@ -20,11 +20,30 @@
 <meta name="twitter:image" content="https://shoito.pages.dev/ogp.png">
 
     <style>
+        html, body {
 
+            
+            /* 💡 画面全体をFlexboxにして、中身を真ん中に寄せる */
+            display: flex;
+            justify-content: center; /* 左右の真ん中 */
+            align-items: center;     /* 上下の真ん中 */
+        }
 
+        /* 💡 文字が表示される「枠（サイズ）」を決める要素 */
+        #terminal-wrapper {
+            width: 80%;          /* 画面の横幅の80%を使う（お好みで調整してください） */
+            max-width: 800px;    /* 大きくなりすぎないように制限 */
+            height: 60vh;        /* 画面の高さの60%のサイズにする */
+            background-color: #252526; /* ほんのり背景を明るくして枠を分かりやすく */
+            border-radius: 8px;  /* 角を少し丸くする */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* 影をつけて立体的に */
+            overflow: hidden;
+        }
+
+        /* 📜 枠の中で自動スクロールさせるエリア */
         #scroll-container {
             height: 100%;
-            padding: 40px;
+            padding: 30px;
             box-sizing: border-box;
             overflow-y: auto;
             scroll-behavior: smooth;
@@ -32,14 +51,14 @@
 
         /* 変換中（未確定）の文字のスタイル */
         .converting {
-            text-decoration: underline solid #d4d4d4; /* 色は変えず下線だけ */
+            text-decoration: underline solid #d4d4d4; 
         }
 
         /* カーソル */
         .cursor {
             font-weight: bold;
             color: #00adb5;
-            animation: blink 0.5s infinite;
+            animation: blink 0.3s infinite;
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
