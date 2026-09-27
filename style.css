@@ -111,18 +111,18 @@ button,input,textarea{font:inherit}
    ========================= */
 
 .disco-page {
-  background: #111;
-  color: #eee;
+  background: #f1f1f1;
+  color: #171717;
 }
 
 .disco-page .site-nav a {
-  color: #eee;
+  color: #171717;
 }
 
 .disco-page .sound-toggle {
-  background: #222;
-  color: #fff;
-  border-color: #fff;
+  background: rgba(255,255,255,.8);
+  color: #171717;
+  border-color: #171717;
 }
 
 .disco-cloud {
@@ -136,10 +136,10 @@ button,input,textarea{font:inherit}
 
   padding: 8px 12px;
 
-  border: 1px solid rgba(255,255,255,.35);
+  border: 1px solid rgba(0,0,0,.25);
   background: transparent;
 
-  color: #eee;
+  color: #171717;
 
   cursor: pointer;
   user-select: none;
@@ -152,8 +152,8 @@ button,input,textarea{font:inherit}
 }
 
 .track:hover {
-  background: #eee;
-  color: #111;
+  background: #171717;
+  color: #f1f1f1;
 }
 
 /* stage */
