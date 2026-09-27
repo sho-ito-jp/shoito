@@ -130,8 +130,8 @@ async function loadQuestions() {
 
       const frontMatter = match[1];
 
-      const questionMatch =
-        frontMatter.match(/^question:\s*(.+)$/m);
+const questionMatch =
+  frontMatter.match(/^title:\s*(.+)$/m);
 
       if (!questionMatch) continue;
 
