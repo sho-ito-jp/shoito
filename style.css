@@ -57,6 +57,13 @@ button,input,textarea{font:inherit}
 
 /* about: rain */
 .about-page{background:#f1f1f1}
+#rain-window {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+  overflow: hidden;
+}
 .rain-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .drop{
   position:absolute;width:2px;height:80px;background:linear-gradient(transparent,rgba(80,110,125,.18));
