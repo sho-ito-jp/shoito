@@ -23,25 +23,6 @@ collections:
         name: "url"
         widget: "string"
 
-      - label: "左位置 (%)"
-        name: "left"
-        widget: "number"
-        value_type: "int"
-        default: 10
-
-      - label: "上位置 (%)"
-        name: "top"
-        widget: "number"
-        value_type: "int"
-        default: 10
-
-      - label: "回転 (度)"
-        name: "rotate"
-        widget: "number"
-        value_type: "int"
-        default: 0
-
-
   - name: "works"
     label: "WORKS"
     folder: "content/works"
