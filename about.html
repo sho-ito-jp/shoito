@@ -2,32 +2,38 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>about test</title>
+    <title>爆速・自動スクロール日本語入力アニメーション</title>
     <style>
-        body {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
+        /* 画面全体の基本設定 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #1e1e1e; /* エディタ風のダーク背景 */
+            color: #d4d4d4; /* 常にこの文字色をキープ */
             font-family: 'Hiragino Kaku Gothic ProN', 'Segoe UI', sans-serif;
-            padding: 40px;
-            font-size: 1.8rem;
-            line-height: 1.8;
+            overflow: hidden; /* 画面全体のスクロールバーは隠す */
         }
 
-        /* 変換中（未確定）の文字のスタイル */
+        /* 📜 文字が表示されるエリア（ここが自動スクロールします） */
+        #scroll-container {
+            height: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow-y: auto; /* 縦方向のスクロールを有効にする */
+            scroll-behavior: smooth; /* スクロールをなめらかに */
+        }
+
+        /* 💡 変換中（未確定）の文字のスタイル */
         .converting {
-            color: #ffaa00; /* 変換中の色 */
-            text-decoration: underline dashed #ffaa00; /* 破線の下線 */
-            font-weight: bold;
-            background-color: #2a2a2a;
-            padding: 0 4px;
-            border-radius: 4px;
+            /* 🎨 色は変えず、下線（実線）だけを引いて入力中を表現 */
+            text-decoration: underline solid #d4d4d4; 
         }
 
         /* カーソル */
         .cursor {
             font-weight: bold;
             color: #00adb5;
-            animation: blink 0.7s infinite;
+            animation: blink 0.5s infinite; /* 点滅も少し早めに */
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
@@ -37,13 +43,14 @@
 </head>
 <body>
 
-    <div id="terminal">
+    <!-- 自動スクロールさせるための外枠 -->
+    <div id="scroll-container">
         <div id="log-area"></div>
         <span id="current-line"></span><span class="cursor">|</span>
     </div>
 
 <script>
-// ✨【ここを書き換えるだけ！】普通の日本語をそのまま入れてください
+// 表示させたい普通の日本語をそのまま入れてください
 const words = [
 "※身バレ防止のため、一時的に一部隠しております。",
 "2011年生まれ。",
@@ -70,8 +77,14 @@ const words = [
 ];
 
 let wordIndex = 0;
+const container = document.getElementById("scroll-container");
 const logArea = document.getElementById("log-area");
 const currentLine = document.getElementById("current-line");
+
+// 🔄 自動で一番下までスクロールさせる関数
+function scrollToBottom() {
+    container.scrollTop = container.scrollHeight;
+}
 
 function startTyping() {
     if (wordIndex >= words.length) {
@@ -82,42 +95,42 @@ function startTyping() {
     const originalText = words[wordIndex];
     let charIndex = 0;
 
-    // 1行の中での処理
     function typeNextChar() {
         if (charIndex < originalText.length) {
-            // 現在の文字を取得
             const char = originalText[charIndex];
-            
-            // 💡【自動判定の仕組み】
-            // 漢字やカタカナ、記号なら「一瞬アルファベット(ローマ字風)」を画面に出してから、
-            // 150ミリ秒後にひらがな/漢字に変身させる（これによってリアルな変換に見せかけます）
-            const isKanjiOrKana = !char.match(/^[ぁ-ん]\$/); // ひらがな以外（漢字・カタカナ・記号）か判定
+            const isKanjiOrKana = !char.match(/^[ぁ-ん]\$/); // ひらがな以外か判定
 
             if (isKanjiOrKana) {
-                // ローマ字っぽく見せるダミーの英数字をランダムに一瞬出す
+                // ローマ字を身代わりに出す（爆速化のため文字プールを絞り込み）
                 const dummyRoma = "bcdfghjklmnpqrstvwxyz".charAt(Math.floor(Math.random() * 21)) + "aiueo".charAt(Math.floor(Math.random() * 5));
                 currentLine.innerHTML = `<span class="converting">${originalText.substring(0, charIndex) + dummyRoma}</span>`;
+                scrollToBottom();
                 
-                // ほんの少し遅らせて、本物の文字（漢字など）に「変換」させる
+                // ⚡ 変換のディレイを大幅に短縮（150ms → 40ms）
                 setTimeout(() => {
                     currentLine.innerHTML = `<span class="converting">${originalText.substring(0, charIndex + 1)}</span>`;
                     charIndex++;
-                    setTimeout(typeNextChar, 100);
-                }, 150); // ローマ字から変換されるまでの隙間時間
+                    scrollToBottom();
+                    setTimeout(typeNextChar, 20);
+                }, 40); 
             } else {
-                // ひらがななら、そのままタイピング（変換中スタイルは維持）
+                // ひらがな入力
                 currentLine.innerHTML = `<span class="converting">${originalText.substring(0, charIndex + 1)}</span>`;
                 charIndex++;
-                setTimeout(typeNextChar, 120); // 打つスピード
+                scrollToBottom();
+                // ⚡ 打つスピードを高速化（120ms → 30ms）
+                setTimeout(typeNextChar, 30); 
             }
         } else {
-            // 1行が完成したらEnterキーで「確定」したようにスタイルを戻して下に追加
+            // ⚡ 打ち終わってから確定（Enter）するまでの余韻も短縮（400ms → 150ms）
             setTimeout(() => {
-                logArea.innerHTML += `<div>${originalText}</div>`; // 縦に並べたいのでdivにしました
+                logArea.innerHTML += `<div>${originalText}</div>`;
                 currentLine.innerHTML = "";
                 wordIndex++;
-                setTimeout(startTyping, 600); // 次の行にいくまでの待ち時間
-            }, 400); // 打ち終わってから確定するまでの余韻
+                scrollToBottom();
+                // ⚡ 次の行へいくまでの待ち時間も短縮（600ms → 300ms）
+                setTimeout(startTyping, 300); 
+            }, 150); 
         }
     }
 
