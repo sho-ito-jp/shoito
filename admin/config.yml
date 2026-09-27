@@ -58,3 +58,13 @@ collections:
         name: "description"
         widget: "string"
 
+  - name: "questions"
+    label: "問い"
+    folder: "content/questions"
+    create: true
+    slug: "{{slug}}"
+
+    fields:
+      - label: "問い"
+        name: "question"
+        widget: "string"
