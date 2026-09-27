@@ -253,35 +253,6 @@ input,textarea{border:1px solid #888;background:rgba(255,255,255,.7);padding:12p
 textarea{min-height:180px;resize:vertical}
 .submit{padding:12px 18px;border:1px solid #111;background:#111;color:#fff;cursor:pointer}
 
-/* 404 */
-.error-page{background:#ff4d00;color:#111;overflow:hidden}
-.error-page .site-nav a{border-color:transparent}
-.error-title{font-size:clamp(100px,25vw,330px);font-weight:900;line-height:.7;position:relative;z-index:4;animation:glitch .17s infinite alternate}
-@keyframes glitch{from{transform:skewX(-2deg)}to{transform:translate(7px,-4px) skewX(3deg)}}
-.noise-word{
-  position:absolute;font-weight:900;font-size:clamp(18px,5vw,72px);
-  animation:chaos 2.8s linear infinite;
-}
-@keyframes chaos{
-  0%{transform:translate(0,0) rotate(0)}
-  25%{transform:translate(35vw,-8vh) rotate(12deg)}
-  50%{transform:translate(-20vw,24vh) rotate(-18deg)}
-  75%{transform:translate(25vw,38vh) rotate(7deg)}
-  100%{transform:translate(0,0) rotate(0)}
-}
-.paint{position:absolute;width:160px;height:90px;background:#111;opacity:.8;filter:blur(1px);transform:rotate(-12deg);animation:paint 1.2s infinite alternate}
-@keyframes paint{to{width:320px;transform:rotate(15deg) translate(30px,20px)}}
-@media(max-width:700px){
-  .site-nav{width:58px;gap:8px}
-  .site-nav a{width:44px;height:44px;font-size:19px}
-  .page{padding:42px 22px 80px 76px}
-  .system-row{grid-template-columns:60px 1fr}
-  .system-row .meta{display:none}
-  .track{position:relative!important;display:inline-block;margin:10px;left:auto!important;top:auto!important}
-  .disco-cloud{min-height:auto}
-  .event-card{position:relative!important;left:auto!important;top:auto!important;margin:22px 0;width:auto}
-  .hanging{height:260px}
-}
 
 
 /* Home: centered vertical title */
