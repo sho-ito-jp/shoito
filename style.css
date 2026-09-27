@@ -229,6 +229,7 @@ button,input,textarea{font:inherit}
   position: fixed;
   right: 24px;
   bottom: 24px;
+
   z-index: 1;
   pointer-events: none;
 
@@ -245,9 +246,10 @@ button,input,textarea{font:inherit}
 }
 
 .contact-question {
-  max-width: 100%;
+  width: 100%;
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: break-word;
   text-align: right;
 }
 
