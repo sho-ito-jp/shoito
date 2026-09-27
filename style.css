@@ -59,19 +59,51 @@ button,input,textarea{font:inherit}
 }
 .home p{color:var(--muted);letter-spacing:.18em}
 
-/* about */
+/* =========================
+   WORKS
+   ========================= */
 
-/* works */
+.works-page {
+  background: #f1f1f1;
+}
+
 .works-list {
   display: flex;
-  gap: 40px;
+  align-items: flex-start;
+
+  gap: 55px;
+
+  min-height: 65vh;
+
   overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 40px 20px 60px;
 }
 
 .work-item {
   writing-mode: vertical-rl;
   text-orientation: mixed;
+
+  display: block;
+
   white-space: nowrap;
+
+  color: inherit;
+  text-decoration: none;
+
+  font-size: 22px;
+  line-height: 1.4;
+
+  padding: 12px 8px;
+
+  border-left: 1px solid transparent;
+
+  transition: border-color .2s ease;
+}
+
+.work-item:hover {
+  border-left-color: currentColor;
 }
 
 /* discography */
