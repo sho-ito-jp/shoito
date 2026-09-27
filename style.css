@@ -225,6 +225,42 @@ button,input,textarea{font:inherit}
   animation: contact-cursor 1s steps(1) infinite;
 }
 
+.contact-questions {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+
+  z-index: 1;
+  pointer-events: none;
+
+  width: min(420px, 40vw);
+
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+
+  gap: 3px;
+
+  font-size: 11px;
+  line-height: 1.5;
+  color: #777;
+}
+
+.contact-question {
+  white-space: nowrap;
+}
+
+.contact-question.typing::after {
+  content: "｜";
+  animation: contact-cursor .8s steps(1) infinite;
+}
+
+@keyframes contact-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+
 @keyframes contact-cursor {
   50% {
     opacity: 0;
