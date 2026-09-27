@@ -245,14 +245,6 @@ button,input,textarea{font:inherit}
   color: #777;
 }
 
-.contact-question {
-  width: 100%;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  text-align: right;
-}
-
 .contact-question.typing::after {
   content: "｜";
   animation: contact-cursor .8s steps(1) infinite;
