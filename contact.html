@@ -118,6 +118,8 @@ async function loadQuestions() {
 
     const files = await response.json();
 
+    const questions = [];
+
     for (const file of files) {
       if (!file.name.endsWith(".md")) continue;
 
@@ -135,12 +137,42 @@ async function loadQuestions() {
 
       if (!questionMatch) continue;
 
+      questions.push(questionMatch[1].trim());
+    }
+
+    let index = 0;
+
+    function showNextQuestion() {
+      if (index >= questions.length) return;
+
       const question = document.createElement("div");
       question.className = "contact-question";
-      question.textContent = questionMatch[1].trim();
 
       container.appendChild(question);
+
+      const text = questions[index];
+      let charIndex = 0;
+
+      // タイプ開始
+      const typing = setInterval(() => {
+        question.textContent = text.slice(0, charIndex) + "｜";
+        charIndex++;
+
+        if (charIndex > text.length) {
+          clearInterval(typing);
+
+          // カーソルを消す
+          question.textContent = text;
+
+          index++;
+
+          // 次の問い
+          setTimeout(showNextQuestion, 700);
+        }
+      }, 70);
     }
+
+    showNextQuestion();
 
   } catch (error) {
     console.error("問いの読み込みに失敗しました:", error);
