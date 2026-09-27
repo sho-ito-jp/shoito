@@ -62,11 +62,17 @@ button,input,textarea{font:inherit}
 /* about */
 
 /* works */
-.works-page{background:#f1f1f1;}
-.system-list{border-top:1px solid #999}
-.system-row{display:grid;grid-template-columns:90px 1fr 120px;gap:18px;padding:18px 0;border-bottom:1px solid #999}
+.works-list {
+  display: flex;
+  gap: 40px;
+  overflow-x: auto;
+}
 
-@keyframes sway{50%{transform:translateX(14px) rotate(2deg)}}
+.work-item {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+}
 
 /* discography */
 .disco-page{background:#111;color:#eee}
