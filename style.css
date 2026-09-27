@@ -202,3 +202,13 @@ textarea{min-height:180px;resize:vertical}
   line-height: 2;
   margin-bottom: 2em;
 }
+
+.works-list {
+  min-height: 55vh;
+  gap: 30px;
+  padding: 30px 10px 50px;
+}
+
+.work-item {
+  font-size: 18px;
+}
