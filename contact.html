@@ -101,6 +101,98 @@
   </section>
 </main>
 
-<script src="script.js"></script>
+<script>
+async function loadQuestions() {
+  const questionElement = document.getElementById("contact-question");
+
+  try {
+    const response = await fetch(
+      "https://api.github.com/repos/sho-ito-jp/shoito/contents/content/questions"
+    );
+
+    if (!response.ok) {
+      throw new Error("GitHub API error: " + response.status);
+    }
+
+    const files = await response.json();
+
+    const questions = [];
+
+    for (const file of files) {
+      if (!file.name.endsWith(".md")) continue;
+
+      const response = await fetch(file.download_url);
+      const text = await response.text();
+
+      const match = text.match(/^---\s*([\s\S]*?)\s*---/);
+
+      if (!match) continue;
+
+      const frontMatter = match[1];
+
+      const questionMatch =
+        frontMatter.match(/^question:\s*(.+)$/m);
+
+      if (!questionMatch) continue;
+
+      questions.push(questionMatch[1].trim());
+    }
+
+    if (questions.length === 0) return;
+
+    let questionIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function typeQuestion() {
+      const text = questions[questionIndex];
+
+      if (!deleting) {
+        questionElement.textContent =
+          text.slice(0, charIndex + 1);
+
+        charIndex++;
+
+        if (charIndex >= text.length) {
+          deleting = true;
+          setTimeout(typeQuestion, 1800);
+          return;
+        }
+
+        setTimeout(typeQuestion, 55);
+
+      } else {
+        questionElement.textContent =
+          text.slice(0, charIndex - 1);
+
+        charIndex--;
+
+        if (charIndex <= 0) {
+          deleting = false;
+          questionIndex =
+            (questionIndex + 1) % questions.length;
+
+          setTimeout(typeQuestion, 400);
+          return;
+        }
+
+        setTimeout(typeQuestion, 30);
+      }
+    }
+
+    typeQuestion();
+
+  } catch (error) {
+    console.error(
+      "問いの読み込みに失敗しました:",
+      error
+    );
+  }
+}
+
+loadQuestions();
+
+
+ <src="script.js"></script>
 </body>
 </html>
