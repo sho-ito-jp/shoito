@@ -5,16 +5,28 @@
     <title>about test</title>
     <style>
         body {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Hiragino Kaku Gothic ProN', 'Segoe UI', sans-serif;
             padding: 40px;
-            font-size: 2rem;
-            line-height: 1.6; /* 行間を少し広げて見やすく */
+            font-size: 1.8rem;
+            line-height: 1.8;
         }
-        /* タイピングの縦棒カーソル（点滅効果） */
+
+        /* 変換中（未確定）の文字のスタイル */
+        .converting {
+            color: #ffaa00; /* 変換中の色 */
+            text-decoration: underline dashed #ffaa00; /* 破線の下線 */
+            font-weight: bold;
+            background-color: #2a2a2a;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        /* カーソル */
         .cursor {
             font-weight: bold;
+            color: #00adb5;
             animation: blink 0.7s infinite;
         }
         @keyframes blink {
@@ -25,14 +37,15 @@
 </head>
 <body>
 
-    <div>
-        <!-- innerHTMLを使うため、枠となる要素を用意します -->
-        <span id="typing-area"></span><span class="cursor">|</span>
+    <div id="terminal">
+        <div id="log-area"></div>
+        <span id="current-line"></span><span class="cursor">|</span>
     </div>
 
 <script>
-// 下に向かって順番に表示させたい文章のリスト
+// ✨【ここを書き換えるだけ！】普通の日本語をそのまま入れてください
 const words = [
+"※身バレ防止のため、一時的に一部隠しております。",
 "2011年生まれ。",
 "埼玉県〇〇〇出身。",
 "地元・〇〇を拠点に、",
@@ -57,44 +70,61 @@ const words = [
 ];
 
 let wordIndex = 0;
-let charIndex = 0;
-let completedText = ""; // 打ち終わった過去の文章を保存する変数
+const logArea = document.getElementById("log-area");
+const currentLine = document.getElementById("current-line");
 
-const areaElement = document.getElementById("typing-area");
-
-function typeEffect() {
-    // すべての文章を打ち終えたらカーソルを消して終了
+function startTyping() {
     if (wordIndex >= words.length) {
         document.querySelector(".cursor").style.display = "none";
         return;
     }
 
-    const currentWord = words[wordIndex];
-    
-    // 現在打っている文字を切り出す
-    const currentChar = currentWord.substring(0, charIndex + 1);
-    
-    // 過去の確定文章 + 今打っている文字 を画面に表示
-    areaElement.innerHTML = completedText + currentChar;
-    charIndex++;
+    const originalText = words[wordIndex];
+    let charIndex = 0;
 
-    let typingSpeed = 100; // 文字を打つスピード（ミリ秒）
+    // 1行の中での処理
+    function typeNextChar() {
+        if (charIndex < originalText.length) {
+            // 現在の文字を取得
+            const char = originalText[charIndex];
+            
+            // 💡【自動判定の仕組み】
+            // 漢字やカタカナ、記号なら「一瞬アルファベット(ローマ字風)」を画面に出してから、
+            // 150ミリ秒後にひらがな/漢字に変身させる（これによってリアルな変換に見せかけます）
+            const isKanjiOrKana = !char.match(/^[ぁ-ん]\$/); // ひらがな以外（漢字・カタカナ・記号）か判定
 
-    // 1つの文章（行）が打ち終わったとき
-    if (charIndex === currentWord.length) {
-        // 打ち終わった文章に改行（<br>）を足して保存
-        completedText += currentWord + "<br>"; 
-        
-        wordIndex++;    // 次の文章へ
-        charIndex = 0;  // 文字のカウントをリセット
-        typingSpeed = 1000; // 次の行にいく前の待ち時間（1秒）
+            if (isKanjiOrKana) {
+                // ローマ字っぽく見せるダミーの英数字をランダムに一瞬出す
+                const dummyRoma = "bcdfghjklmnpqrstvwxyz".charAt(Math.floor(Math.random() * 21)) + "aiueo".charAt(Math.floor(Math.random() * 5));
+                currentLine.innerHTML = `<span class="converting">${originalText.substring(0, charIndex) + dummyRoma}</span>`;
+                
+                // ほんの少し遅らせて、本物の文字（漢字など）に「変換」させる
+                setTimeout(() => {
+                    currentLine.innerHTML = `<span class="converting">${originalText.substring(0, charIndex + 1)}</span>`;
+                    charIndex++;
+                    setTimeout(typeNextChar, 100);
+                }, 150); // ローマ字から変換されるまでの隙間時間
+            } else {
+                // ひらがななら、そのままタイピング（変換中スタイルは維持）
+                currentLine.innerHTML = `<span class="converting">${originalText.substring(0, charIndex + 1)}</span>`;
+                charIndex++;
+                setTimeout(typeNextChar, 120); // 打つスピード
+            }
+        } else {
+            // 1行が完成したらEnterキーで「確定」したようにスタイルを戻して下に追加
+            setTimeout(() => {
+                logArea.innerHTML += `<div>${originalText}</div>`; // 縦に並べたいのでdivにしました
+                currentLine.innerHTML = "";
+                wordIndex++;
+                setTimeout(startTyping, 600); // 次の行にいくまでの待ち時間
+            }, 400); // 打ち終わってから確定するまでの余韻
+        }
     }
 
-    setTimeout(typeEffect, typingSpeed);
+    typeNextChar();
 }
 
-// アニメーションの開始
-document.addEventListener("DOMContentLoaded", typeEffect);
+document.addEventListener("DOMContentLoaded", startTyping);
 </script>
 
 </body>
