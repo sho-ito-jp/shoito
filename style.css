@@ -53,8 +53,8 @@ button,input,textarea{font:inherit}
 /* home */
 .home{display:grid;place-items:center;text-align:center;min-height:100vh}
 .home h1 {
-  font-size: clamp(32px, 4vw, 56px);
-  letter-spacing: -0.03em;
+  font-size: 32px;
+  letter-spacing: 0;
   margin: 0;
 }
 .home p{color:var(--muted);letter-spacing:.18em}
