@@ -1,186 +1,76 @@
 <!DOCTYPE html>
+
 <html lang="ja">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>伊藤翔</title>
-<link rel="stylesheet" href="style.css">
+
+<title>コンタクト - 伊藤翔</title>
+
 <link rel="icon" href="is logo.png">
-<!-- OGP / Social Preview -->
-<meta property="og:title" content="伊藤翔">
-<meta property="og:description" content="伊藤翔">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://shoito.jp/contact">
-<meta property="og:image" content="https://shoito.pages.dev/ogp.png">
 
-<!-- X向け -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="伊藤翔">
-<meta name="twitter:description" content="伊藤翔">
-<meta name="twitter:image" content="https://shoito.pages.dev/ogp.png">
+<meta charset="UTF-8">
+
 </head>
-<body class="contact-page" data-audio="contact.wav" data-audio-volume="0.28">
 
-<nav class="site-nav" aria-label="メインナビゲーション">
-  <a href="index.html" title="ホーム">●</a>
-  <a href="about.html" title="アバウト">伊</a>
-  <a href="works.html" title="ワークス">藤</a>
-  <a href="discography.html" title="ディスコグラフィー">翔</a>
-  <a href="stage.html" title="ステージ">台</a>
-  <a href="https://note.com/shoitonote" data-diary-link title="ダイアリー" target="_blank">書</a>
-  <a href="contact.html" title="コンタクト">問</a>
-  <small>SHO ITO / 2026</small>
-</nav>
-<button class="sound-toggle" data-sound-toggle type="button">音 ON</button>
+<body>
 
+<center>
 
-<main class="page contact-page">
+<main>
 
-<div id="contact-questions"></div>
+<div>
 
-  <section class="contact-card panel">    <div class="meta">問 / CONTACT</div>
-    
-    <p>お問い合わせ・ご連絡はこちらから。</p>
+<table>
+
+<tr>
+
+<td align="right"><a class="botan" href="index.html">ゴートゥーホーム - Go to home</a></td>
+
+<td>
+
+<H2>コンタクト</H2>
+
+Contact
+
+</td>
+
+</tr>
+
+</table>
+
 <form action="https://api.lazyforms.com/f/4270da2c-4a7d-42c2-b792-b78dbdeb811d" method="POST">
 
-  <label for="name">
-    名前 - Name :
-    <input
-      id="name"
-      type="text"
-      name="name"
-      placeholder="お名前を入力してください"
-      required
-    >
-  </label>
+<p>お名前</p>
+<input type="text" name="name">
 
-  <label for="email">
-    メールアドレス - Email :
-    <input
-      id="email"
-      type="email"
-      name="email"
-      placeholder="info@shoito.jp"
-      required
-    >
-  </label>
+<p>メールアドレス</p>
+<input type="email" name="email">
 
-  <label for="company">
-    会社名 - Company :
-    <input
-      id="company"
-      type="text"
-      name="company"
-      placeholder="会社名、団体名を入力してください"
-    >
-  </label>
+<p>お問い合わせ内容</p>
+<select name="type">
+  <option value="">選択してください</option>
+  <option value="楽曲・作品について">楽曲・作品について</option>
+  <option value="出演・依頼について">出演・依頼について</option>
+  <option value="その他">その他</option>
+</select>
 
-  <label for="contact-type">
-    内容 - Contact Type:
-    <select id="contact-type" name="contact_type" required>
-      <option value="" selected disabled>内容を選択してください</option>
-      <option value="制作依頼">製作依頼</option>
-      <option value="メディア掲載">メディア等の掲載</option>
-      <option value="その他">その他</option>
-    </select>
-  </label>
+<p>メッセージ</p>
+<textarea name="message"></textarea>
 
-  <label for="message">
-    Message :
-    <textarea
-      id="message"
-      name="message"
-      placeholder="メッセージを入力してください"
-      required
-    ></textarea>
-  </label>
-
-  <button class="submit" type="submit">
-    送る - Send →
-  </button>
+<p>
+<input type="submit" value="送信">
+</p>
 
 </form>
-  </section>
 
+<H2>&#169;2026 伊藤翔</H2>
 
-<script>
-async function loadQuestions() {
-  const container = document.getElementById("contact-questions");
+</div>
 
-  try {
-    const response = await fetch(
-      "https://api.github.com/repos/sho-ito-jp/shoito/contents/content/questions"
-    );
-
-    if (!response.ok) {
-      throw new Error("GitHub API error: " + response.status);
-    }
-
-    const files = await response.json();
-
-    const questions = [];
-
-    for (const file of files) {
-      if (!file.name.endsWith(".md")) continue;
-
-      const mdResponse = await fetch(file.download_url);
-      const text = await mdResponse.text();
-
-      const match = text.match(/^---\s*([\s\S]*?)\s*---/);
-
-      if (!match) continue;
-
-      const frontMatter = match[1];
-
-      const questionMatch =
-        frontMatter.match(/^question:\s*(.+)$/m);
-
-      if (!questionMatch) continue;
-
-      questions.push(questionMatch[1].trim());
-    }
-
-    let index = 0;
-
-    function showNextQuestion() {
-      if (index >= questions.length) return;
-
-      const question = document.createElement("div");
-      question.className = "contact-question";
-
-      container.appendChild(question);
-
-      const text = questions[index];
-      let charIndex = 0;
-
-      // タイプ開始
-      const typing = setInterval(() => {
-        question.textContent = text.slice(0, charIndex) + "｜";
-        charIndex++;
-
-        if (charIndex > text.length) {
-          clearInterval(typing);
-
-          // カーソルを消す
-          question.textContent = text;
-
-          index++;
-
-          // 次の問い
-          setTimeout(showNextQuestion, 700);
-        }
-      }, 70);
-    }
-
-    showNextQuestion();
-
-  } catch (error) {
-    console.error("問いの読み込みに失敗しました:", error);
-  }
-}
-
-loadQuestions();
-</script>
 </main>
+
+</center>
+
 </body>
+
 </html>
