@@ -1,112 +1,44 @@
-
-(() => {
-  const stateKey = "shoito-audio-enabled";
-  const getEnabled = () => localStorage.getItem(stateKey) !== "off";
-
-  const audioFile = document.body.dataset.audio;
-  let bg = null;
-  let enabled = getEnabled();
-
-  if (audioFile) {
-    bg = new Audio(audioFile);
-    bg.loop = true;
-    bg.preload = "auto";
-    bg.volume = document.body.dataset.audioVolume ? Number(document.body.dataset.audioVolume) : 0.28;
-  }
-
-  const toggle = document.querySelector("[data-sound-toggle]");
-  const updateToggle = () => {
-    if (!toggle) return;
-    toggle.textContent = enabled ? "音 ON" : "音 OFF";
-    toggle.setAttribute("aria-label", enabled ? "音をオフにする" : "音をオンにする");
-  };
-
-  async function startAudio() {
-    if (!bg || !enabled) return;
-    try { await bg.play(); } catch (_) {}
-  }
-
-  function stopAudio() {
-    if (!bg) return;
-    bg.pause();
-    bg.currentTime = 0;
-  }
-
-  if (toggle) {
-    toggle.addEventListener("click", async () => {
-      enabled = !enabled;
-      localStorage.setItem(stateKey, enabled ? "on" : "off");
-      if (enabled) await startAudio(); else stopAudio();
-      updateToggle();
-    });
-  }
+const modalButtons = document.querySelectorAll("[data-modal]");
+const modals = document.querySelectorAll(".modal");
+const closeButtons = document.querySelectorAll(".modal-close");
 
 
-  const gesture = () => {
-    startAudio();
-    document.removeEventListener("pointerdown", gesture);
-    document.removeEventListener("keydown", gesture);
-  };
-  document.addEventListener("pointerdown", gesture, {once:true});
-  document.addEventListener("keydown", gesture, {once:true});
-  updateToggle();
+// モーダルを開く
+modalButtons.forEach(button => {
+  button.addEventListener("click", () => {
 
-  // Diary
-document.querySelectorAll('[data-diary-link]').forEach(link => {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
+    const targetId = button.dataset.modal;
+    const targetModal = document.getElementById(targetId);
 
-    const newTab = window.open('', '_blank');
+    if (!targetModal) return;
 
-    const audio = new Audio('diary.wav');
-    audio.volume = 0.28;
-    audio.play().catch(() => {});
+    targetModal.classList.add("is-open");
 
-    setTimeout(() => {
-      if (newTab) {
-        newTab.location.href = link.href;
-      }
-    }, 500);
   });
 });
 
-  // Discography
-  const overlay = document.querySelector(".cd-overlay");
 
-  const discSound = () => {
-    const s = new Audio("disc.wav");
-    s.volume = 0.55;
-    s.play().catch(() => {});
-  };
+// モーダルを閉じる
+closeButtons.forEach(button => {
+  button.addEventListener("click", () => {
 
+    const modal = button.closest(".modal");
 
-  document.addEventListener("click", (event) => {
-    const track = event.target.closest("[data-track]");
+    if (!modal) return;
 
-    if (!track) return;
+    modal.classList.remove("is-open");
 
-    discSound();
-
-    if (overlay) {
-      const cd = overlay.querySelector(".cd");
-
-      cd.style.setProperty(
-        "--disc",
-        track.dataset.cover || "#ddd"
-      );
-
-      overlay.querySelector("[data-cd-title]").textContent =
-        track.dataset.title || "";
-
-      overlay.classList.add("show");
-    }
-
-    setTimeout(() => {
-      const href = track.dataset.url;
-
-      if (href && href !== "#") {
-        location.href = href;
-      }
-    }, 1300);
   });
-  setupDiscographyTracks();
+});
+
+
+// ESCキーでも閉じる
+document.addEventListener("keydown", event => {
+
+  if (event.key !== "Escape") return;
+
+  modals.forEach(modal => {
+    modal.classList.remove("is-open");
+  });
+
+});
