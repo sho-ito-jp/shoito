@@ -1,130 +1,23 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>404 - 伊藤翔</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    @font-face {
-      font-family: "はんなり明朝";
-      src: url("./fonts/hannari.woff2") format("woff2");
-    }
-
-    body {
-      background: #F1F1F1;
-      color: #000;
-      font-family: "はんなり明朝", serif;
-    }
-
-
-    /* =========================
-       404
-    ========================= */
-
-    #error-page {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-    }
-
-
-    /* 404 VIDEO */
-
-    .error-video {
-      position: absolute;
-
-      left: 50%;
-      top: 50%;
-
-      transform: translate(-50%, -50%);
-
-      width: min(42vw, 600px);
-      aspect-ratio: 16 / 9;
-
-      overflow: hidden;
-    }
-
-    .error-video video {
-      width: 100%;
-      height: 100%;
-
-      display: block;
-
-      object-fit: contain;
-    }
-
-
-    /* GO TO HOME */
-
-    .go-home {
-      position: fixed;
-
-      bottom: 24px;
-      left: 24px;
-
-      z-index: 10;
-
-      color: inherit;
-      text-decoration: none;
-
-      font-size: 14px;
-      letter-spacing: 0.05em;
-    }
-
-    .go-home:hover {
-      opacity: 0.5;
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 700px) {
-
-      .error-video {
-        width: 70vw;
-      }
-
-      .go-home {
-        bottom: 16px;
-        left: 16px;
-      }
-
-    }
-  </style>
-
+<meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 - 伊藤翔</title>
+<style> * { box-sizing: border-box; } html, body { margin: 0; width: 100%; height: 100%; } @font-face { font-family: "はんなり明朝"; src: url("./fonts/hannari.woff2") format("woff2"); } body { background: #F1F1F1; color: #000; font-family: "はんなり明朝", serif; } /* ========================= 404 ========================= */ #error-page { position: relative; width: 100%; height: 100vh; } /* 404 VIDEO */ .error-video { position: fixed; inset: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; } .error-video video { width: 100%; height: 100%; display: block; object-fit: cover; } /* GO TO HOME */ .go-home { position: fixed; bottom: 24px; left: 24px; z-index: 10; color: inherit; text-decoration: none; font-size: 14px; letter-spacing: 0.05em; } .go-home:hover { opacity: 0.5; } /* ========================= MOBILE ========================= */ @media (max-width: 700px) { .go-home { bottom: 16px; left: 16px; } } </style>
 </head>
-
 <body>
-
-  <main id="error-page">
-
-```
+<main id="error-page">
 <div class="error-video">
-  <video autoplay muted loop playsinline>
-    <source src="404.mp4" type="video/mp4">
-  </video>
+
+  <video autoplay muted loop playsinline>
+    <source src="404.mp4" type="video/mp4">
+  </video>
+
 </div>
 
 <a href="./" class="go-home">GO TO HOME</a>
-```
-
-  </main>
-
+</main>
 </body>
 </html>
+
+
