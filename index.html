@@ -1,56 +1,122 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-<title>伊藤翔</title>
-<link rel="icon" href="is logo.png">
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>伊藤翔</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<center>
 
-<main>
-<div>
-<table>
-<tr>
-<td>
-<H2>伊藤翔　Sho Ito</H2>
-伊藤翔オフィシャルサイト　Sho Ito Official Site
-</td>
-</tr>
-</table>
+  <!-- HOME -->
+  <main id="home">
 
-<table>
-<tr>
-<td align="right"><a class="botan" href="about.html" >伊 ≫</a></td>
-<td align="left">アバウト - About</td>
-</tr>
-<tr>
-<td align="right"><a class="botan" href="discography.html" >藤≫</a></td>
-<td align="left">ディスコグラフィー - Discography</td>
-</tr>
-<tr>
-<td align="right"><a class="botan" href="works.html" >翔≫</a></td>
-<td align="left">ワークス - Works</td>
-</tr>
-<tr>
-<td align="right"><a class="botan" href="stage.html" >台</a></td>
-<td align="left">ステージ: イベント - Stage & Event</td>
-</tr>
-<tr>
-<td align="right"><a class="botan" href="https://note.com/shoitonote" target=“_blank” >書</a></td>
-<td align="left">ブログ - Blog</td>
-</tr>
-<tr>
-<td align="right"><a class="botan" href="contact.html" >問</a></td>
-<td align="left">コンタクト - Contact</td>
-</tr>
-</table>
-<H2>&#169;2026 伊藤翔</H2>
-</div>
-</main>
+    <!-- 左上 -->
+    <nav class="nav-top-left">
+      <button data-modal="works">WORKS</button>
+      <button data-modal="stage">STAGE</button>
+    </nav>
 
-</center>
+    <!-- 中央：ホーム動画 -->
+    <div class="home-video">
+      <video autoplay muted loop playsinline>
+        <source src="home.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- 左下 -->
+    <nav class="nav-bottom-left">
+      <button data-modal="contact">CONTACT</button>
+    </nav>
+
+  </main>
+
+
+
+<!-- WORKS -->
+<section class="modal" id="works">
+  <button class="modal-close">CLOSE</button>
+
+  <div class="modal-content works-content">
+
+    <div class="works-column">
+      <h2>DISCOGRAPHY</h2>
+
+      <div class="disco-cloud" id="discography-list">
+        <!-- 旧DISCOGRAPHYと同じCMSデータをここへ -->
+      </div>
+    </div>
+
+    <div class="works-column">
+      <h2>WORKS</h2>
+
+      <div class="works-list" id="works-list">
+        <!-- 旧WORKSと同じCMSデータをここへ -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- STAGE -->
+  <section class="modal" id="stage">
+    <button class="modal-close">CLOSE</button>
+
+    <div class="modal-content">
+      <h2>STAGE</h2>
+
+      <div class="stage-list">
+        <!-- 後で出演情報などを追加 -->
+      </div>
+    </div>
+  </section>
+
+
+<!-- CONTACT -->
+<section class="modal" id="contact">
+  <button class="modal-close">CLOSE</button>
+
+  <div class="modal-content contact-content">
+    <h2>CONTACT</h2>
+
+    <form action="https://api.lazyforms.com/f/4270da2c-4a7d-42c2-b792-b78dbdeb811d" method="POST">
+
+      <label>
+        名前
+        <input type="text" name="name">
+      </label>
+
+      <label>
+        メールアドレス
+        <input type="email" name="email">
+      </label>
+
+      <label>
+        種類
+        <select name="type">
+          <option value="">選択してください</option>
+          <option value="楽曲・作品について">楽曲・作品について(現在受け付けておりません。)</option>
+          <option value="出演・依頼について">出演・依頼について(現在受け付けておりません。)</option>
+          <option value="その他">その他</option>
+        </select>
+      </label>
+
+      <label>
+        本文
+        <textarea name="message"></textarea>
+      </label>
+
+      <button type="submit">送信</button>
+
+    </form>
+  </div>
+</section>
+
+
+  <script src="script.js"></script>
 </body>
 </html>
-
