@@ -210,6 +210,19 @@ button {
 }
 
 /* =========================
+   STAGE
+========================= */
+
+.stage-title a {
+  color: #000;
+  text-decoration: none;
+}
+
+.stage-title a:hover {
+  opacity: 0.5;
+}
+
+/* =========================
    CONTACT
 ========================= */
 
