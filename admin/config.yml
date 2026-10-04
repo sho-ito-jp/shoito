@@ -38,7 +38,6 @@ collections:
         name: "url"
         widget: "string"
 
-
   - name: "stage"
     label: "Stage"
     folder: "content/stage"
