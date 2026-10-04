@@ -1,67 +1,130 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>404 - 伊藤翔</title>
-  <link rel="icon" href="is logo.png">
-<link rel="stylesheet" href="style.css">
-<!-- OGP / Social Preview -->
-<meta property="og:title" content="404 - 伊藤翔">
-<meta property="og:description" content="404 - 伊藤翔">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://shoito.jp/404">
-<meta property="og:image" content="https://shoito.pages.dev/ogp.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- X向け -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="404 - 伊藤翔">
-<meta name="twitter:description" content="404 - 伊藤翔">
-<meta name="twitter:image" content="https://shoito.pages.dev/ogp.png">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #ede7e7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+  <title>404 - 伊藤翔</title>
 
-        video {
-            max-width: 90%;
-            max-height: 90%;
-            outline: none;
-        }
-    </style>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    @font-face {
+      font-family: "はんなり明朝";
+      src: url("./fonts/hannari.woff2") format("woff2");
+    }
+
+    body {
+      background: #F1F1F1;
+      color: #000;
+      font-family: "はんなり明朝", serif;
+    }
+
+
+    /* =========================
+       404
+    ========================= */
+
+    #error-page {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+    }
+
+
+    /* 404 VIDEO */
+
+    .error-video {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      transform: translate(-50%, -50%);
+
+      width: min(42vw, 600px);
+      aspect-ratio: 16 / 9;
+
+      overflow: hidden;
+    }
+
+    .error-video video {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: contain;
+    }
+
+
+    /* GO TO HOME */
+
+    .go-home {
+      position: fixed;
+
+      bottom: 24px;
+      left: 24px;
+
+      z-index: 10;
+
+      color: inherit;
+      text-decoration: none;
+
+      font-size: 14px;
+      letter-spacing: 0.05em;
+    }
+
+    .go-home:hover {
+      opacity: 0.5;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      .error-video {
+        width: 70vw;
+      }
+
+      .go-home {
+        bottom: 16px;
+        left: 16px;
+      }
+
+    }
+  </style>
+
 </head>
-<body class="error-page" data-audio="404.wav" data-audio-volume="0.45">
 
-<nav class="site-nav" aria-label="メインナビゲーション">
-  <a href="index.html" title="ホーム">●</a>
-  <a href="about.html" title="アバウト">伊</a>
-  <a href="works.html" title="ワークス">藤</a>
-  <a href="discography.html" title="ディスコグラフィー">翔</a>
-  <a href="stage.html" title="ステージ">台</a>
-  <a href="https://note.com/shoitonote" data-diary-link title="ダイアリー" target="_blank">書</a>
-  <a href="contact.html" title="コンタクト">問</a>
-  <small>SHO ITO / 2026</small>
-</nav>
-  </section>
-</main>
-<video id="movie" src="404.mp4" playsinline></video>
+<body>
 
-<script>
-  const video = document.getElementById("movie");
+  <main id="error-page">
 
-  video.addEventListener("click", () => {
-    video.play();
-  });
-</script>
+```
+<div class="error-video">
+  <video autoplay muted loop playsinline>
+    <source src="404.mp4" type="video/mp4">
+  </video>
+</div>
 
+<a href="./" class="go-home">GO TO HOME</a>
+```
+
+  </main>
 
 </body>
 </html>
