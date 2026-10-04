@@ -212,11 +212,27 @@ async function loadStage() {
       date.textContent = data.date || "";
 
 
-      const title = document.createElement("h3");
+const title = document.createElement("h3");
 
-      title.className = "stage-title";
+title.className = "stage-title";
 
-      title.textContent = data.title;
+if (data.url) {
+
+  const link = document.createElement("a");
+
+  link.href = data.url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+
+  link.textContent = data.title;
+
+  title.appendChild(link);
+
+} else {
+
+  title.textContent = data.title;
+
+}
 
 
       const description = document.createElement("p");
