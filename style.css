@@ -191,6 +191,24 @@ button {
 }
 
 
+/* CMSから読み込んだ作品 */
+
+.cms-item {
+  display: block;
+
+  color: #000;
+  text-decoration: none;
+
+  font-size: 16px;
+  line-height: 1.8;
+
+  margin-bottom: 12px;
+}
+
+.cms-item:hover {
+  opacity: 0.5;
+}
+
 /* =========================
    CONTACT
 ========================= */
