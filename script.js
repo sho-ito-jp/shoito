@@ -160,3 +160,89 @@ loadCollection(
   "content/works",
   "works-list"
 );
+
+// ==============================
+// STAGE
+// ==============================
+
+async function loadStage() {
+
+  const target = document.querySelector(".stage-list");
+
+  if (!target) return;
+
+  try {
+
+    const response = await fetch(
+      `${GITHUB_API}content/stage?ref=main`
+    );
+
+    if (!response.ok) {
+      throw new Error("GitHub API error");
+    }
+
+    const files = await response.json();
+
+    target.innerHTML = "";
+
+    for (const file of files) {
+
+      if (!file.name.endsWith(".md")) continue;
+
+      const markdownResponse = await fetch(file.download_url);
+
+      if (!markdownResponse.ok) continue;
+
+      const markdown = await markdownResponse.text();
+
+      const data = parseMarkdown(markdown);
+
+      if (!data.title) continue;
+
+
+      const item = document.createElement("article");
+
+      item.className = "stage-item";
+
+
+      const date = document.createElement("div");
+
+      date.className = "stage-date";
+
+      date.textContent = data.date || "";
+
+
+      const title = document.createElement("h3");
+
+      title.className = "stage-title";
+
+      title.textContent = data.title;
+
+
+      const description = document.createElement("p");
+
+      description.className = "stage-description";
+
+      description.textContent = data.description || "";
+
+
+      item.appendChild(date);
+      item.appendChild(title);
+      item.appendChild(description);
+
+      target.appendChild(item);
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "STAGEデータの読み込みに失敗しました",
+      error
+    );
+
+  }
+
+}
+
+loadStage();
