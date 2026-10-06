@@ -148,7 +148,7 @@ async function loadCollection(folder, targetId) {
 
 
 // ==============================
-// DISCOGRAPHY / WORKS
+// DISCOGRAPHY / WORKS / LINKS
 // ==============================
 
 loadCollection(
@@ -161,14 +161,11 @@ loadCollection(
   "works-list"
 );
 
-// ==============================
-// LINKS
-// ==============================
-
 loadCollection(
   "content/links",
   "links-list"
 );
+
 
 // ==============================
 // STAGE
