@@ -87,3 +87,22 @@ collections:
       - label: "URL"
         name: "url"
         widget: "string"
+
+  - name: "posts"
+    label: "ブログ"
+    folder: "content/posts"
+    create: true
+    slug: "{{slug}}"
+
+    fields:
+      - label: "タイトル"
+        name: "title"
+        widget: "string"
+
+      - label: "投稿日"
+        name: "date"
+        widget: "datetime"
+
+      - label: "本文"
+        name: "body"
+        widget: "markdown"
