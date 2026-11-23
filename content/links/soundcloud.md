@@ -1,4 +1,4 @@
 ---
 title: SoundCloud
-url: https://soundcloud.com/sho_ito
+url: https://soundcloud.com/shoitoworks
 ---
